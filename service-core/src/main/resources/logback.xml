@@ -70,6 +70,7 @@
     -->
     <!-- app logger 代码日志级别-->
     <logger name="cn.laoshengle" level="debug"/>
+    <logger name="com.alibaba.nacos" level="error"/>
     <!-- Spring framework logger Spring框架日志级别-->
     <logger name="org.springframework" level="info" additivity="false"/>
 

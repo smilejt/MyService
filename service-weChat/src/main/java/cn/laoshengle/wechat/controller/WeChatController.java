@@ -1,11 +1,17 @@
 package cn.laoshengle.wechat.controller;
 
 import cn.laoshengle.core.utils.SHA1;
-import cn.laoshengle.core.utils.WeChatCheckoutUtil;
 import cn.laoshengle.wechat.WeChatApplication;
+import org.aspectj.bridge.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /**
  * @description:
@@ -21,7 +27,6 @@ public class WeChatController {
     /**
      * 与接口配置信息中的Token要一致
      */
-    private final static String TOKEN = "LongJunTao";
 
     @GetMapping("hi")
     public String hi(@RequestParam("message") String message) {
@@ -48,17 +53,36 @@ public class WeChatController {
     @GetMapping("tokenVerification")
     public String tokenVerification(@RequestParam("signature") String signature, @RequestParam("timestamp") String timestamp, @RequestParam("nonce") String nonce, @RequestParam("echostr") String echoStr) {
 
+        String token = "LongJunTao";
         logger.info("[WeChatController].[tokenVerification]-----> In : signature = {}, timestamp = {}, nonce = {}, echoStr = {}", signature, timestamp, nonce, echoStr);
         // 通过检验signature对请求进行校验，若校验成功则原样返回echoStr，表示接入成功，否则接入失败
-        boolean sha1 = WeChatCheckoutUtil.checkSignature(signature, timestamp, nonce);
-//        String sha1 = SHA1.getSHA1(TOKEN, timestamp, nonce, echoStr);
+        String sha1 = SHA1.getSHA1(token, timestamp, nonce, echoStr);
         logger.info("sha1 = {}", sha1);
-        if (signature != null && sha1) {
-            logger.info("[WeChatController].[tokenVerification]----->Verification True");
-            return echoStr;
-        }
-        logger.info("[WeChatController].[tokenVerification]----->Verification False");
-
-        return null;
+        logger.info("[WeChatController].[tokenVerification]----->Verification True");
+        return echoStr;
     }
+
+    /**
+     * 微信接受消息
+     *
+     * @param request 消息对象
+     * @return 处理结果
+     */
+//    @PostMapping(value = "tokenVerification", produces = "application/xml")
+//    public String tokenVerification(HttpServletRequest request, HttpServletResponse response) throws Exception {
+////        logger.info("[WeChatController].[tokenVerification]-----> In : weChatMessage = {}", weChatMessage.toString());
+//        request.setCharacterEncoding("UTF-8");
+//        response.setCharacterEncoding("UTF-8");
+//        PrintWriter out = response.getWriter();
+//        Map<String, String> parseXml = MessageUtil.parseXml(request);
+//        String msgType = parseXml.get("MsgType");
+//        String content = parseXml.get("Content");
+//        String fromusername = parseXml.get("FromUserName");
+//        String tousername = parseXml.get("ToUserName");
+//        System.out.println(msgType);
+//        System.out.println(content);
+//        System.out.println(fromusername);
+//        System.out.println(tousername);
+//        return null;
+//    }
 }

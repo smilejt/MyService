@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @description:
@@ -68,6 +66,7 @@ public class LoginFilter extends ZuulFilter {
         logger.info("{} >>> {}", request.getMethod(), request.getRequestURL().toString());
         //模拟拦截未登录请求
         String token = request.getParameter("token");
+
         if (token == null) {
             logger.warn("Token is empty");
 //            测试阶段,放开拦截

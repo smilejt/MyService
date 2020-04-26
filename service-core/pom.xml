@@ -139,6 +139,13 @@
             <version>4.1.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Dubbo组件 -->
 <!--        <dependency>-->
 <!--            <groupId>com.alibaba.cloud</groupId>-->
