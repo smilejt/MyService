@@ -4,6 +4,7 @@ import cn.laoshengle.core.constant.CommonConstant;
 import cn.laoshengle.core.constant.WeChatMsgTypeConstant;
 import cn.laoshengle.core.entity.request.WeChatMessage;
 import cn.laoshengle.core.service.wechat.WeChatMessageService;
+import cn.laoshengle.core.utils.ThreadPoolUtil;
 import cn.laoshengle.core.utils.WeChatCheckoutUtil;
 import cn.laoshengle.core.utils.WeChatMessageUtil;
 import cn.laoshengle.wechat.WeChatApplication;
@@ -87,10 +88,20 @@ public class WeChatController {
 
         if (!StringUtils.isEmpty(weChatMessage.getMsgType())) {
             //初始化返回XML(""表示告诉微信不处理)
-            String resultXmlString = CommonConstant.NULL_STRING;
+            String resultXmlString;
             switch (weChatMessage.getMsgType()) {
                 case WeChatMsgTypeConstant.TEXT_CODE:
-                    resultXmlString = weChatMessageService.handleWeChatTextMessage(weChatMessage);
+                    //文本消息,异步调用处理
+                    ThreadPoolUtil.newTask(new Runnable() {
+                        @Override
+                        public void run() {
+                            logger.info("[WeChatController].[receiveWeChatMessage]-----> Asynchronous Process Messages");
+                            weChatMessageService.handleWeChatTextMessage(weChatMessage);
+                        }
+                    });
+
+                    //当前线程直接返回success
+                    resultXmlString = CommonConstant.SUCCESS_STRING;
                     break;
                 case WeChatMsgTypeConstant.EVENT_CODE:
                     //关注/取消关注消息

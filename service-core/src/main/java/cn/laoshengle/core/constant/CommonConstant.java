@@ -18,6 +18,11 @@ public class CommonConstant {
     public static final String NULL_STRING = "";
 
     /**
+     * 告诉微信成功,暂时不处理
+     */
+    public static final String SUCCESS_STRING = "success";
+
+    /**
      * ArrayList类路径
      */
     public static final String ARRAY_LIST_STRING = "java.util.ArrayList";
