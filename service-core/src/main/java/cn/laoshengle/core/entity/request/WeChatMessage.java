@@ -1,4 +1,4 @@
-package cn.laoshengle.core.entity.response;
+package cn.laoshengle.core.entity.request;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @description:
+ * @description: 微信接收消息对象
  * @author: 龙逸
  * @createDate: 2020/04/26 11:13:30
  **/
@@ -84,7 +84,7 @@ public class WeChatMessage implements Serializable {
     private String thumbMediaId;
 
     /**
-     * 地理位置维度
+     * 地理位置纬度
      */
     @JacksonXmlProperty(localName = "Location_X")
     private Double locationX;

@@ -9,10 +9,11 @@
     <name>MyService</name>
     <modules>
         <module>service-core</module>
-<!--        <module>service-core-mapper</module>-->
         <module>service-core-api</module>
+        <module>service-core-db</module>
         <module>service-gateway</module>
         <module>service-weChat</module>
+        <module>service-weChat-impl</module>
     </modules>
 
     <properties>
@@ -46,13 +47,6 @@
                 <version>${com.alibaba.cloud}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- 数据库插件flywaydb版本 -->
-            <dependency>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-core</artifactId>
-                <version>6.4.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

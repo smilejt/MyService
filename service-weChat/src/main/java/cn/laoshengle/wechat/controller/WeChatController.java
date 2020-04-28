@@ -2,9 +2,8 @@ package cn.laoshengle.wechat.controller;
 
 import cn.laoshengle.core.constant.CommonConstant;
 import cn.laoshengle.core.constant.WeChatMsgTypeConstant;
-import cn.laoshengle.core.entity.response.WeChatMessage;
-import cn.laoshengle.core.enums.WeChatMsgType;
-import cn.laoshengle.core.utils.SHA1;
+import cn.laoshengle.core.entity.request.WeChatMessage;
+import cn.laoshengle.core.service.wechat.WeChatMessageService;
 import cn.laoshengle.core.utils.WeChatCheckoutUtil;
 import cn.laoshengle.core.utils.WeChatMessageUtil;
 import cn.laoshengle.wechat.WeChatApplication;
@@ -13,9 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import javax.annotation.Resource;
 
 /**
  * @description:
@@ -27,6 +24,9 @@ import java.util.Map;
 public class WeChatController {
 
     private static final Logger logger = LoggerFactory.getLogger(WeChatApplication.class);
+
+    @Resource
+    private WeChatMessageService weChatMessageService;
 
     /**
      * 测试接口00
@@ -90,6 +90,7 @@ public class WeChatController {
             String resultXmlString = CommonConstant.NULL_STRING;
             switch (weChatMessage.getMsgType()) {
                 case WeChatMsgTypeConstant.TEXT_CODE:
+                    resultXmlString = weChatMessageService.handleWeChatTextMessage(weChatMessage);
                     break;
                 case WeChatMsgTypeConstant.EVENT_CODE:
                     //关注/取消关注消息

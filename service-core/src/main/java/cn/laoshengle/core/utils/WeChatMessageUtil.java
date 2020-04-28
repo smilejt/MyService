@@ -1,7 +1,7 @@
 package cn.laoshengle.core.utils;
 
 import cn.laoshengle.core.constant.CommonConstant;
-import cn.laoshengle.core.entity.response.WeChatMessage;
+import cn.laoshengle.core.entity.request.WeChatMessage;
 import cn.laoshengle.core.enums.WeChatMsgType;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;

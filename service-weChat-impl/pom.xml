@@ -7,9 +7,9 @@
         <artifactId>MyService</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>service-gateway</artifactId>
-    <name>service-gateway</name>
-    <description>网关服务模块</description>
+    <artifactId>service-weChat-impl</artifactId>
+    <name>service-weChat-impl</name>
+    <description>微信服务实现模块</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java_source_version>1.8</java_source_version>
@@ -21,19 +21,17 @@
 
         <dependency>
             <groupId>cn.laoshengle</groupId>
-            <artifactId>service-core</artifactId>
+            <artifactId>service-core-db</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>
-        <finalName>service-gateway</finalName>
+        <finalName>service-weChat-impl</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -59,7 +57,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>cn.laoshengle.gateway.GatewayApplication</mainClass>
+                    <mainClass>cn.laoshengle.wechat.impl.WeChatImplApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  **/
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients({"cn.laoshengle.core.service.wechat"})
 public class WeChatApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(WeChatApplication.class);
