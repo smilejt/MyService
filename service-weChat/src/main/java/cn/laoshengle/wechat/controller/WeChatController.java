@@ -92,12 +92,10 @@ public class WeChatController {
             switch (weChatMessage.getMsgType()) {
                 case WeChatMsgTypeConstant.TEXT_CODE:
                     //文本消息,异步调用处理
-                    ThreadPoolUtil.newTask(new Runnable() {
-                        @Override
-                        public void run() {
-                            logger.info("[WeChatController].[receiveWeChatMessage]-----> Asynchronous Process Messages");
-                            weChatMessageService.handleWeChatTextMessage(weChatMessage);
-                        }
+                    ThreadPoolUtil.newTask(() -> {
+                        logger.info("[WeChatController].[receiveWeChatMessage]-----> Asynchronous Process Messages");
+                        weChatMessageService.handleWeChatTextMessage(weChatMessage);
+                        //处理完成,执行客服消息回调逻辑
                     });
 
                     //当前线程直接返回success
