@@ -2,21 +2,26 @@ package cn.laoshengle.wechat.controller;
 
 import cn.laoshengle.core.constant.CommonConstant;
 import cn.laoshengle.core.constant.WeChatMsgTypeConstant;
+import cn.laoshengle.core.entity.JsonResult;
 import cn.laoshengle.core.entity.request.WeChatMessage;
 import cn.laoshengle.core.service.wechat.WeChatMessageService;
-import cn.laoshengle.core.utils.ThreadPoolUtil;
-import cn.laoshengle.core.utils.WeChatCheckoutUtil;
-import cn.laoshengle.core.utils.WeChatMessageUtil;
+import cn.laoshengle.core.utils.*;
 import cn.laoshengle.wechat.WeChatApplication;
+import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
- * @description:
+ * @description: 微信公众号相关接口
  * @author: 龙逸
  * @createDate: 2020/04/25 15:19:06
  **/
@@ -29,6 +34,9 @@ public class WeChatController {
     @Resource
     private WeChatMessageService weChatMessageService;
 
+    @Resource
+    private RestTemplate restTemplate;
+
     /**
      * 测试接口00
      *
@@ -38,6 +46,13 @@ public class WeChatController {
     @GetMapping("hi")
     public String hi(@RequestParam("message") String message) {
         logger.info("{} WeChat Controller", message);
+        RedisUtil.setObject("testKey", message, TimeUnit.MINUTES, 120L);
+        try {
+            Thread.sleep(10000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        logger.info("从Redis读取的数据:{}", RedisUtil.getBucket("testKey"));
         return String.format("%s WeChat Controller", message);
     }
 
@@ -114,6 +129,51 @@ public class WeChatController {
             //如果MsgType为空(正常不会出现)
             logger.error("[WeChatController].[receiveWeChatMessage]-----> Error : msgType is null");
             return WeChatMessageUtil.defaultMessage(weChatMessage);
+        }
+    }
+
+    /**
+     * 获取微信AccessToken
+     *
+     * @return 获取结果
+     */
+    @GetMapping(value = "getAccessToken")
+    public JsonResult getAccessToken() {
+
+        logger.info("[WeChatController].[getAccessToken]------> Request WeChat to get Token, time = {}", DateFormatUtil.parseDateToStr(new Date(), DateFormatUtil.DATE_TIME_FORMAT_YYYY_MM_DD_HH_MI_SS));
+
+        String url = String.format("%s%s%s%s%s%s%s%s%s",
+                CommonConstant.ACCESS_TOKEN_URL,
+                CommonConstant.GET_URL_AND,
+                CommonConstant.APP_ID_KEY,
+                CommonConstant.EQUAL,
+                CommonConstant.APP_ID,
+                CommonConstant.GET_URL_AND,
+                CommonConstant.APP_SECRET_KEY,
+                CommonConstant.EQUAL,
+                CommonConstant.APP_SECRET);
+        ResponseEntity<String> resultEntity = restTemplate.getForEntity(url, String.class);
+
+        //判断请求是否成功
+        if (CommonConstant.HTTP_REQUEST_SUCCESS_CODE != resultEntity.getStatusCodeValue()) {
+            logger.error("[WeChatController].[getAccessToken]------> Failed to request WeChat to obtain token");
+            return JsonResult.buildFailMsg("请求微信获取Token失败!");
+        }
+
+        //将微信返回结果转换成Map
+        Map<String, Object> resultMap = JSON.parseObject(resultEntity.getBody());
+        if (resultMap.containsKey(CommonConstant.ACCESS_TOKEN_KEY) && !StringUtils.isEmpty(resultMap.get(CommonConstant.ACCESS_TOKEN_KEY))) {
+            @SuppressWarnings("SuspiciousMethodCalls")
+            long time = resultMap.containsKey(CommonConstant.EXPIRES_IN_KEY) ? (long) resultMap.get(resultMap.get(CommonConstant.EXPIRES_IN_KEY)) : 7200L;
+            //写入Redis
+            RedisUtil.setObject(CommonConstant.WE_CHAT_TOKEN_KEY, resultMap.get(CommonConstant.ACCESS_TOKEN_KEY), TimeUnit.SECONDS, time);
+            logger.info("[WeChatController].[getAccessToken]------> Request WeChat to obtain token successfully");
+            return JsonResult.buildSuccess("data", "Request WeChat to obtain token successfully");
+        } else {
+            int errorCode = resultMap.containsKey(CommonConstant.ERR_CODE_KEY) ? (int) resultMap.get(CommonConstant.ERR_CODE_KEY) : 99999;
+            String errorMsg = resultMap.containsKey(CommonConstant.ERR_MSG_KEY) ? (String) resultMap.get(CommonConstant.ERR_MSG_KEY) : null;
+            logger.error("[WeChatController].[getAccessToken]------> Failed to request WeChat to obtain token, code = {}, msg = {}, codeDetailed = {}", errorCode, errorMsg, WeChatMessageUtil.weChatTokenErrorCodeDetailed(errorCode));
+            return JsonResult.buildFailMsg(WeChatMessageUtil.weChatTokenErrorCodeDetailed(errorCode));
         }
     }
 }

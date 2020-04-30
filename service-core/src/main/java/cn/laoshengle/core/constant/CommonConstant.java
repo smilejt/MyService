@@ -78,4 +78,124 @@ public class CommonConstant {
      */
     public static final String DEFAULT_MESSAGE_STRING = "抱歉,暂时不支持该消息类型,我们会尽快完善,感谢您的支持!";
     public static final String DEFAULT_EVENT_MESSAGE_STRING = "感谢您对我们的关注,目前我们正处于开发阶段,很多功能尚未完善,开发完成会第一时间通知您!";
+
+    /**
+     * 微信的AppID
+     */
+    public static final String APP_ID = "wxba0bd24757980434";
+
+    /**
+     * 微信的AppSecret密码
+     */
+    public static final String APP_SECRET = "bf1ff4a393fc240e5256f446ded468af";
+
+    /**
+     * 获取微信 AccessToken 的url地址
+     */
+    public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";
+
+    /**
+     * 获取微信Token返回的 AccessToken 的Key
+     */
+    public static final String ACCESS_TOKEN_KEY = "access_token";
+
+    /**
+     * 获取微信Token返回的 Token 有效时间Key
+     */
+    public static final String EXPIRES_IN_KEY = "expires_in";
+
+    /**
+     * 获取微信Token返回的错误码Key
+     */
+    public static final String ERR_CODE_KEY = "errcode";
+
+    /**
+     * 获取微信Token返回的错误信息Key
+     */
+    public static final String ERR_MSG_KEY = "errmsg";
+
+    /**
+     * Get请求参数链接符号
+     */
+    public static final String GET_URL_AND = "&";
+
+    /**
+     * appId参数的Key
+     */
+    public static final String APP_ID_KEY = "appid";
+
+    /**
+     * appSecret的Key
+     */
+    public static final String APP_SECRET_KEY = "secret";
+
+    /**
+     * 等于符号
+     */
+    public static final String EQUAL = "=";
+
+    /**
+     * 请求失败字符串
+     */
+    public static final String FAIL_MSG = "请求失败";
+
+    /**
+     * 存入Redis中微信Token的Key
+     */
+    public static final String WE_CHAT_TOKEN_KEY = "weChatToken";
+
+    /**
+     * 微信错误编码 -1 对应信息
+     */
+    public static final String WE_CHAT_ERROR_CODE_MINUS_ONE = "系统繁忙，此时请开发者稍候再试";
+
+    /**
+     * 微信错误编码 0 对应信息
+     */
+    public static final String WE_CHAT_ERROR_CODE_0 = "请求成功";
+
+    /**
+     * 微信错误编码 40001 对应信息
+     */
+    public static final String WE_CHAT_ERROR_CODE_40001 = "AppSecret错误或者AppSecret不属于这个公众号，请开发者确认AppSecret的正确性";
+
+    /**
+     * 微信错误编码 40002 对应信息
+     */
+    public static final String WE_CHAT_ERROR_CODE_40002 = "请确保grant_type字段值为client_credential";
+
+    /**
+     * 微信错误编码 40164 对应信息
+     */
+    public static final String WE_CHAT_ERROR_CODE_40164 = "调用接口的IP地址不在白名单中，请在接口IP白名单中进行设置";
+
+    /**
+     * 微信错误编码 89503 对应信息
+     */
+    public static final String WE_CHAT_ERROR_CODE_89503 = "此IP调用需要管理员确认,请联系管理员";
+
+    /**
+     * 微信错误编码 89501 对应信息
+     */
+    public static final String WE_CHAT_ERROR_CODE_89501 = "此IP正在等待管理员确认,请联系管理员";
+
+    /**
+     * 微信错误编码 89506 对应信息
+     */
+    public static final String WE_CHAT_ERROR_CODE_89506 = "24小时内该IP被管理员拒绝调用两次，24小时内不可再使用该IP调用";
+
+    /**
+     * 微信错误编码 89507 对应信息
+     */
+    public static final String WE_CHAT_ERROR_CODE_89507 = "1小时内该IP被管理员拒绝调用一次，1小时内不可再使用该IP调用";
+
+    /**
+     * 微信其他错误编码对应信息
+     */
+    public static final String WE_CHAT_ERROR_CODE_OTHER = "其他原因";
+
+    /**
+     * Http请求成功码
+     */
+    public static final int HTTP_REQUEST_SUCCESS_CODE = 200;
 }

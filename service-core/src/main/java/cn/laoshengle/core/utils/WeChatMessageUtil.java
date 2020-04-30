@@ -79,10 +79,11 @@ public class WeChatMessageUtil {
 
     /**
      * 不支持的消息默认返回
+     *
      * @param weChatMessage 微信消息入参对象
      * @return XML字符串
      */
-    public static String defaultMessage(WeChatMessage weChatMessage){
+    public static String defaultMessage(WeChatMessage weChatMessage) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put(MAP_KEY_TO_USER, weChatMessage.getFromUserName());
         resultMap.put(MAP_KEY_FROM_USER, weChatMessage.getToUserName());
@@ -94,10 +95,11 @@ public class WeChatMessageUtil {
 
     /**
      * 默认关注回复
+     *
      * @param weChatMessage 默认微信关注回复
      * @return XML字符串
      */
-    public static String defaultEventMessage(WeChatMessage weChatMessage){
+    public static String defaultEventMessage(WeChatMessage weChatMessage) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put(MAP_KEY_TO_USER, weChatMessage.getFromUserName());
         resultMap.put(MAP_KEY_FROM_USER, weChatMessage.getToUserName());
@@ -105,5 +107,38 @@ public class WeChatMessageUtil {
         resultMap.put(MAP_KEY_MSG_TYPE, WeChatMsgType.text);
         resultMap.put(MAP_KEY_CONTENT, CommonConstant.DEFAULT_EVENT_MESSAGE_STRING);
         return mapToXml(resultMap);
+    }
+
+    /**
+     * 微信Token获取错误码对应信息
+     * @param errorCode 错误码
+     * @return 对应的错误原因
+     */
+    public static String weChatTokenErrorCodeDetailed(Integer errorCode) {
+        if (errorCode != null) {
+            switch (errorCode) {
+                case -1:
+                    return CommonConstant.WE_CHAT_ERROR_CODE_MINUS_ONE;
+                case 0:
+                    return CommonConstant.WE_CHAT_ERROR_CODE_0;
+                case 40001:
+                    return CommonConstant.WE_CHAT_ERROR_CODE_40001;
+                case 40002:
+                    return CommonConstant.WE_CHAT_ERROR_CODE_40002;
+                case 40164:
+                    return CommonConstant.WE_CHAT_ERROR_CODE_40164;
+                case 89503:
+                    return CommonConstant.WE_CHAT_ERROR_CODE_89503;
+                case 89501:
+                    return CommonConstant.WE_CHAT_ERROR_CODE_89501;
+                case 89506:
+                    return CommonConstant.WE_CHAT_ERROR_CODE_89506;
+                case 89507:
+                    return CommonConstant.WE_CHAT_ERROR_CODE_89507;
+                default:
+                    return CommonConstant.WE_CHAT_ERROR_CODE_OTHER;
+            }
+        }
+        return null;
     }
 }
