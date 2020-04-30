@@ -109,8 +109,9 @@ public class WeChatController {
                     //文本消息,异步调用处理
                     ThreadPoolUtil.newTask(() -> {
                         logger.info("[WeChatController].[receiveWeChatMessage]-----> Asynchronous Process Messages");
-                        weChatMessageService.handleWeChatTextMessage(weChatMessage);
+                        String asynchronousResultString = weChatMessageService.handleWeChatTextMessage(weChatMessage);
                         //处理完成,执行客服消息回调逻辑
+                        WeChatMessageUtil.sendWeChatMessageToUserName(restTemplate, asynchronousResultString, weChatMessage.getFromUserName());
                     });
 
                     //当前线程直接返回success
@@ -164,6 +165,9 @@ public class WeChatController {
         Map<String, Object> resultMap = JSON.parseObject(resultEntity.getBody());
         if (resultMap.containsKey(CommonConstant.ACCESS_TOKEN_KEY) && !StringUtils.isEmpty(resultMap.get(CommonConstant.ACCESS_TOKEN_KEY))) {
             long time = resultMap.containsKey(CommonConstant.EXPIRES_IN_KEY) ? Long.parseLong(resultMap.get(CommonConstant.EXPIRES_IN_KEY).toString()) : 7200L;
+
+            //测试接口,暂控制台输出Token
+            logger.info("token = {}", resultMap.get(CommonConstant.ACCESS_TOKEN_KEY));
 
             //写入Redis
             RedisUtil.setObject(CommonConstant.WE_CHAT_TOKEN_KEY, resultMap.get(CommonConstant.ACCESS_TOKEN_KEY), TimeUnit.SECONDS, time);

@@ -95,6 +95,11 @@ public class CommonConstant {
     public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";
 
     /**
+     * 微信客服接口-发消息
+     */
+    public static final String REPLY_WE_CHAT_MESSAGE_URL = "https://api.weixin.qq.com/cgi-bin/message/custom/send?";
+
+    /**
      * 获取微信Token返回的 AccessToken 的Key
      */
     public static final String ACCESS_TOKEN_KEY = "access_token";

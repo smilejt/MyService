@@ -20,7 +20,7 @@
     nacos：服务注册、配置中心
     redisson：Redis操作工具
     zuul：网关及负载均衡等控制
-    openfeign：完成服务之间的额调用
+    openfeign：完成内部服务之间的调用
     poi：操作Excel(后期可能会用到)
     lombok：简化实体对象代码(例如：get、set、toString方法)
 </pre>

@@ -1,11 +1,17 @@
 package cn.laoshengle.core.utils;
 
 import cn.laoshengle.core.constant.CommonConstant;
+import cn.laoshengle.core.entity.JsonResult;
 import cn.laoshengle.core.entity.request.WeChatMessage;
 import cn.laoshengle.core.enums.WeChatMsgType;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
@@ -111,6 +117,7 @@ public class WeChatMessageUtil {
 
     /**
      * 微信Token获取错误码对应信息
+     *
      * @param errorCode 错误码
      * @return 对应的错误原因
      */
@@ -140,5 +147,38 @@ public class WeChatMessageUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * 前期测试用,异步回复消息
+     *
+     * @param messageText 消息内容
+     * @param toUser      接收的用户名
+     */
+    public static void sendWeChatMessageToUserName(RestTemplate restTemplate, String messageText, String toUser) {
+
+        Map<String, Object> contentMap = new HashMap<>();
+        contentMap.put("content", messageText);
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("touser", toUser);
+        resultMap.put("msgtype", "text");
+        resultMap.put("text", contentMap);
+
+        //组装Headers及请求体
+        HttpHeaders headers = new HttpHeaders();
+        MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
+        headers.setContentType(type);
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+        HttpEntity<String> formEntity = new HttpEntity<>(JSON.toJSONString(resultMap), headers);
+
+        //组装请求URL
+        String url = String.format("%s%s%s%s", CommonConstant.REPLY_WE_CHAT_MESSAGE_URL, CommonConstant.ACCESS_TOKEN_KEY, CommonConstant.EQUAL, RedisUtil.getBucket(CommonConstant.WE_CHAT_TOKEN_KEY).get());
+        ResponseEntity<String> resultEntity = restTemplate.postForEntity(url, formEntity, String.class);
+        if (CommonConstant.HTTP_REQUEST_SUCCESS_CODE != resultEntity.getStatusCodeValue()) {
+            logger.error("[WeChatMessageUtil].[sendWeChatMessageToUserName]------> Failed to reply to WeChat message");
+        } else {
+            logger.info("[WeChatMessageUtil].[sendWeChatMessageToUserName]------> resultEntity.getBody() = {}", resultEntity.getBody());
+        }
     }
 }
