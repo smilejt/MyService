@@ -1,4 +1,4 @@
-package cn.laoshengle.wechat;
+package cn.laoshengle.task;
 
 import cn.laoshengle.core.config.HttpsClientRequestFactory;
 import org.slf4j.Logger;
@@ -6,26 +6,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * @description: 微信模块启动类
+ * @description: 定时任务启动类
  * @author: 龙逸
- * @createDate: 2020/04/25 15:04:16
+ * @createDate: 2020/04/30 18:53:35
  **/
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients({"cn.laoshengle.core.service.wechat"})
-public class WeChatApplication {
+@EnableScheduling
+public class TaskApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeChatApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(TaskApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(WeChatApplication.class, args);
+        SpringApplication.run(TaskApplication.class, args);
 
-        logger.info("---------------------WeChatApplication Successful Start---------------------");
+        logger.info("---------------------TaskApplication Successful Start---------------------");
     }
 
     /**

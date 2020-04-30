@@ -38,6 +38,7 @@
 API模块：
     service-gateway：网关模块(对外暴露接口,由网关统一分配请求,占用端口8080)
     service-weChat：微信API模块(用于处理微信相关逻辑调用)
+    service-task：定时任务模块(此模块只会运行一个)
 </pre>
 
 ### 打包部署说明
