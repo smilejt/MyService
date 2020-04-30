@@ -1,4 +1,4 @@
-package cn.laoshengle.wechat.config;
+package cn.laoshengle.core.config;
 
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 
@@ -29,7 +29,7 @@ public class HttpsClientRequestFactory extends SimpleClientHttpRequestFactory {
             TrustManager[] trustAllCerts = new TrustManager[]{
                     new X509TrustManager() {
                         @Override
-                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                        public X509Certificate[] getAcceptedIssuers() {
                             return null;
                         }
 

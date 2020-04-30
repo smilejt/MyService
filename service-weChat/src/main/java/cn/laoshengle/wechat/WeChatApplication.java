@@ -1,6 +1,6 @@
 package cn.laoshengle.wechat;
 
-import cn.laoshengle.wechat.config.HttpsClientRequestFactory;
+import cn.laoshengle.core.config.HttpsClientRequestFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

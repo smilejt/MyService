@@ -163,11 +163,12 @@ public class WeChatController {
         //将微信返回结果转换成Map
         Map<String, Object> resultMap = JSON.parseObject(resultEntity.getBody());
         if (resultMap.containsKey(CommonConstant.ACCESS_TOKEN_KEY) && !StringUtils.isEmpty(resultMap.get(CommonConstant.ACCESS_TOKEN_KEY))) {
-            long time = resultMap.containsKey(CommonConstant.EXPIRES_IN_KEY) ? (long) resultMap.get(CommonConstant.EXPIRES_IN_KEY) : 7200L;
+            long time = resultMap.containsKey(CommonConstant.EXPIRES_IN_KEY) ? Long.parseLong(resultMap.get(CommonConstant.EXPIRES_IN_KEY).toString()) : 7200L;
+
             //写入Redis
             RedisUtil.setObject(CommonConstant.WE_CHAT_TOKEN_KEY, resultMap.get(CommonConstant.ACCESS_TOKEN_KEY), TimeUnit.SECONDS, time);
             logger.info("[WeChatController].[getAccessToken]------> Request WeChat to obtain token successfully");
-            return JsonResult.buildSuccess("data", "Request WeChat to obtain token successfully");
+            return JsonResult.buildSuccessMsg("Request WeChat to obtain token successfully");
         } else {
             int errorCode = resultMap.containsKey(CommonConstant.ERR_CODE_KEY) ? (int) resultMap.get(CommonConstant.ERR_CODE_KEY) : 99999;
             String errorMsg = resultMap.containsKey(CommonConstant.ERR_MSG_KEY) ? (String) resultMap.get(CommonConstant.ERR_MSG_KEY) : null;
