@@ -203,4 +203,9 @@ public class CommonConstant {
      * Http请求成功码
      */
     public static final int HTTP_REQUEST_SUCCESS_CODE = 200;
+
+    /**
+     * 请求获取微信ACCESS_TOKEN
+     */
+    public static final String TASK_GET_WE_CHAT_TOKEN_URL = "http://laoshengle.cn/api/weChat/weChatService/getAccessToken";
 }
