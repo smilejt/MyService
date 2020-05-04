@@ -65,6 +65,7 @@ public class WeChatController {
     public String hiNo() {
         String message = "No Message";
         logger.info("{} WeChat Controller", message);
+
         return String.format("%s WeChat Controller", message);
     }
 
@@ -138,7 +139,7 @@ public class WeChatController {
      *
      * @return 获取结果
      */
-    @GetMapping(value = "getAccessToken")
+    @RequestMapping(value = "getAccessToken")
     public JsonResult getAccessToken() {
 
         logger.info("[WeChatController].[getAccessToken]------> Request WeChat to get Token, time = {}", DateFormatUtil.parseDateToStr(new Date(), DateFormatUtil.DATE_TIME_FORMAT_YYYY_MM_DD_HH_MI_SS));
