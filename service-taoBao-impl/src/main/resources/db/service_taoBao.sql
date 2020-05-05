@@ -1,7 +1,7 @@
-USE `service_taoBao`;
+USE `service_taobao`;
 # 淘宝每日精选原始数据表
-DROP TABLE IF EXISTS `service_taoBao`.`taobao_goods_original_data`;
-CREATE TABLE `service_taoBao`.`taobao_goods_original_data`
+DROP TABLE IF EXISTS `service_taobao`.`taobao_goods_original_data`;
+CREATE TABLE `service_taobao`.`taobao_goods_original_data`
 (
     `system_id`               VARCHAR(32)    NOT NULL COMMENT '系统ID',
     `good_id`                 BIGINT(20)     NOT NULL COMMENT '商品ID(淘宝)',
@@ -37,8 +37,8 @@ CREATE TABLE `service_taoBao`.`taobao_goods_original_data`
 ) COMMENT = '淘宝每日精选原数据';
 
 # 淘宝商品一级类目
-DROP TABLE IF EXISTS `service_taoBao`.`taobao_goods_category`;
-CREATE TABLE `service_taoBao`.`taobao_goods_category`
+DROP TABLE IF EXISTS `service_taobao`.`taobao_goods_category`;
+CREATE TABLE `service_taobao`.`taobao_goods_category`
 (
     `category_id`   VARCHAR(32) NOT NULL COMMENT '类目ID',
     `category_name` VARCHAR(50) NULL COMMENT '类目名称',

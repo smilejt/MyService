@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.laoshengle.taobao.impl.mapper.GoodsCategoryMapper">
+    <resultMap id="BaseResultMap" type="cn.laoshengle.taobao.impl.pojo.GoodsCategoryPojo">
+        <id column="category_id" property="categoryId" jdbcType="VARCHAR"/>
+        <result column="category_name" property="categoryName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        category_id,category_name
+    </sql>
+
+    <insert id="insert" parameterType="cn.laoshengle.taobao.impl.pojo.GoodsCategoryPojo">
+        insert into taobao_goods_category (category_id, category_name)
+        values ( #{categoryId,jdbcType=VARCHAR}, #{categoryName,jdbcType=VARCHAR});
+    </insert>
+
+    <insert id="insertSelective" parameterType="cn.laoshengle.taobao.impl.pojo.GoodsCategoryPojo">
+        insert into taobao_goods_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="categoryId != null">
+                category_id,
+            </if>
+            <if test="categoryName != null">
+                category_name,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryName != null">
+                #{categoryName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>
