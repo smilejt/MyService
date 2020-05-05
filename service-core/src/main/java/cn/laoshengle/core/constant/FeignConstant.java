@@ -11,4 +11,9 @@ public class FeignConstant {
      * 微信模块实现层
      */
     public static final String WE_CHAT_SERVICE_NAME = "service-weChat-impl";
+
+    /**
+     * 淘宝模块实现层
+     */
+    public static final String TAO_BAO_SERVICE_NAME = "service-taoBao-impl";
 }

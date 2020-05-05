@@ -1,6 +1,7 @@
 package cn.laoshengle.wechat.impl.pojo;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -10,6 +11,7 @@ import java.util.Date;
  * @createDate: 2020/04/27 22:10:43
  **/
 @Data
+@ToString
 public class WeChatMessagePojo {
 
     /**

@@ -15,6 +15,7 @@
         <module>service-weChat</module>
         <module>service-weChat-impl</module>
         <module>service-task</module>
+        <module>service-taoBao-impl</module>
     </modules>
 
     <properties>

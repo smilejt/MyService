@@ -6,6 +6,7 @@ import cn.laoshengle.wechat.impl.mapper.WeChatMessageMapper;
 import cn.laoshengle.wechat.impl.pojo.WeChatMessagePojo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,6 +28,7 @@ public class WeChatMessageServiceImpl implements WeChatMessageService {
     WeChatMessageMapper weChatMessageMapper;
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public String handleWeChatTextMessage(WeChatMessage weChatMessage) {
 
         WeChatMessagePojo weChatMessagePojo = new WeChatMessagePojo();
