@@ -129,7 +129,7 @@ public class GoodsOriginalDataEntity implements Serializable {
     /**
      * 优惠券额度
      */
-    private Integer couponQuota;
+    private String couponQuota;
 
     /**
      * 优惠券门槛金额(分)

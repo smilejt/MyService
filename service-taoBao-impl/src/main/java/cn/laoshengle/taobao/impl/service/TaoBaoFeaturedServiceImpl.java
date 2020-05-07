@@ -1,7 +1,9 @@
 package cn.laoshengle.taobao.impl.service;
 
+import cn.laoshengle.core.entity.CouponAmountUtilEntity;
 import cn.laoshengle.core.entity.GoodsOriginalDataEntity;
 import cn.laoshengle.core.service.taobao.TaoBaoFeaturedService;
+import cn.laoshengle.core.utils.CouponUtil;
 import cn.laoshengle.taobao.impl.mapper.GoodsCategoryMapper;
 import cn.laoshengle.taobao.impl.mapper.GoodsOriginalDataMapper;
 import cn.laoshengle.taobao.impl.pojo.GoodsCategoryPojo;
@@ -55,7 +57,7 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
 
             List<GoodsOriginalDataPojo> paramList = new ArrayList<>();
             GoodsOriginalDataPojo pojo;
-            int num = 0;
+            int num = 0, batch = 0;
 
             //循环参入的的商品列表
             for (GoodsOriginalDataEntity entity : paramsList) {
@@ -75,6 +77,7 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
                     categoryPojo.setCategoryId(categoryId);
                     categoryPojo.setCategoryName(pojo.getGoodCategory());
                     addCategory.add(categoryPojo);
+                    categoryMap.put(categoryPojo.getCategoryName(), categoryPojo.getCategoryId());
                     //关联类目ID
                     pojo.setGoodCategoryId(categoryId);
                 }
@@ -85,8 +88,33 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
                 //设置佣金金额(分)
                 pojo.setGoodCommissionSmall(Math.round(pojo.getGoodCommission() * 100));
                 //拆分优惠券
-
+                CouponAmountUtilEntity couponAmountUtilEntity = CouponUtil.splitCouponString(pojo.getCouponQuota());
+                //写入拆分后的优惠券门槛金额(分)
+                pojo.setCouponStartAmount(couponAmountUtilEntity.getCouponStartAmount());
+                //写入拆分后的优惠券折扣金额(分)
+                pojo.setCouponDiscountAmount(couponAmountUtilEntity.getCouponDiscountAmount());
                 paramList.add(pojo);
+
+                //计数当前是多少个
+                num++;
+
+                //500个为一批新增到数据库
+                if (num >= 500) {
+                    batch++;
+                    if (goodsOriginalDataMapper.insertByList(paramList) <= 0) {
+                        logger.error("[TaoBaoFeaturedServiceImpl].[insertTaoBaoFeaturedByEveryDay]------> Article {} to {} failed to insert", (batch - 1) * 500, batch * 500);
+                    }
+                    //不管是否插入成功,清空之前的记录
+                    num = 0;
+                    paramList = new ArrayList<>();
+                }
+            }
+        }
+
+        //判断类目是否有新增
+        if (!addCategory.isEmpty()) {
+            if (goodsCategoryMapper.insertByList(addCategory) <= 0) {
+                logger.error("[TaoBaoFeaturedServiceImpl].[insertTaoBaoFeaturedByEveryDay]------> Category insertion failed");
             }
         }
     }

@@ -4,6 +4,8 @@ import cn.laoshengle.taobao.impl.pojo.GoodsOriginalDataPojo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @createData: 2020-05-05 15:48
  * @author: LongJunTao
@@ -59,4 +61,11 @@ public interface GoodsOriginalDataMapper {
      * @return 受影响条数
      */
     int updateByPrimaryKey(GoodsOriginalDataPojo record);
+
+    /**
+     * 批量全字段新增
+     * @param recordList 批量新增的List
+     * @return 新增条数
+     */
+    int insertByList(List<GoodsOriginalDataPojo> recordList);
 }

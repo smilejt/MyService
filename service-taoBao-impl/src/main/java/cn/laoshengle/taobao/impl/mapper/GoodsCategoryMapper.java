@@ -25,6 +25,14 @@ public interface GoodsCategoryMapper {
     int insert(GoodsCategoryPojo pojo);
 
     /**
+     * 批量新增类目
+     *
+     * @param pojoList 类目List
+     * @return 受影响的条数
+     */
+    int insertByList(List<GoodsCategoryPojo> pojoList);
+
+    /**
      * 新增非空类目
      *
      * @param pojo 实体对象
@@ -34,8 +42,9 @@ public interface GoodsCategoryMapper {
 
     /**
      * 根据条件查询类目
+     *
      * @param params 查询条件
      * @return 查询结果集
      */
-    List<GoodsCategoryPojo> getGoodsCategory(Map<String,Object> params);
+    List<GoodsCategoryPojo> getGoodsCategory(Map<String, Object> params);
 }

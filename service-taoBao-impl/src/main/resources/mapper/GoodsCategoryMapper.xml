@@ -41,4 +41,12 @@
         <include refid="Base_Column_List"/>
         from taobao_goods_category
     </select>
+
+    <insert id="insertByList" parameterType="java.util.List">
+        insert into taobao_goods_category (category_id, category_name)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.categoryId,jdbcType=VARCHAR}, #{item.categoryName,jdbcType=VARCHAR});
+        </foreach>
+    </insert>
 </mapper>

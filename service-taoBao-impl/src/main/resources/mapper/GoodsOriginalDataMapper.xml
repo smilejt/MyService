@@ -387,4 +387,30 @@
       insert_time = #{insertTime,jdbcType=TIMESTAMP}
     where system_id = #{systemId,jdbcType=VARCHAR}
   </update>
+  <insert id="insertByList" parameterType="java.util.List" >
+    insert into "taobao_goods_original_data" (system_id, good_id, good_name,
+      good_pic_url, good_detailed_url, good_category,
+      good_category_id, tao_bao_ke_url, good_price,
+      good_price_small, good_sales_month, income_ratio,
+      income_ratio_small, good_commission, good_commission_small,
+      seller_wang_name, seller_id, shop_name,
+      platform_type, coupon_id, coupon_count,
+      coupon_num, coupon_quota, coupon_start_amount,
+      coupon_discount_amount, coupon_start_time, coupon_end_time,
+      coupon_url, good_coupon_promote_url, insert_time
+      ) values 
+      <foreach collection="list" item="item" index="index" separator=",">
+        (#{item.systemId,jdbcType=VARCHAR}, #{item.goodId,jdbcType=BIGINT}, #{item.goodName,jdbcType=VARCHAR},
+        #{item.goodPicUrl,jdbcType=VARCHAR}, #{item.goodDetailedUrl,jdbcType=VARCHAR}, #{item.goodCategory,jdbcType=VARCHAR},
+        #{item.goodCategoryId,jdbcType=VARCHAR}, #{item.taoBaoKeUrl,jdbcType=VARCHAR}, #{item.goodPrice,jdbcType=DECIMAL},
+        #{item.goodPriceSmall,jdbcType=BIGINT}, #{item.goodSalesMonth,jdbcType=BIGINT}, #{item.incomeRatio,jdbcType=DECIMAL},
+        #{item.incomeRatioSmall,jdbcType=BIGINT}, #{item.goodCommission,jdbcType=DECIMAL}, #{item.goodCommissionSmall,jdbcType=BIGINT},
+        #{item.sellerWangName,jdbcType=VARCHAR}, #{item.sellerId,jdbcType=BIGINT}, #{item.shopName,jdbcType=VARCHAR},
+        #{item.platformType,jdbcType=VARCHAR}, #{item.couponId,jdbcType=VARCHAR}, #{item.couponCount,jdbcType=BIGINT},
+        #{item.couponNum,jdbcType=BIGINT}, #{item.couponQuota,jdbcType=VARCHAR}, #{item.couponStartAmount,jdbcType=BIGINT},
+        #{item.couponDiscountAmount,jdbcType=BIGINT}, #{item.couponStartTime,jdbcType=VARCHAR}, #{item.couponEndTime,jdbcType=VARCHAR},
+        #{item.couponUrl,jdbcType=VARCHAR}, #{item.goodCouponPromoteUrl,jdbcType=VARCHAR}, #{item.insertTime,jdbcType=TIMESTAMP}
+        )
+      </foreach>
+  </insert>
 </mapper>
