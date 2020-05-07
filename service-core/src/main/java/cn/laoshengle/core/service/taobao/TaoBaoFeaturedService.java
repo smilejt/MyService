@@ -1,10 +1,11 @@
 package cn.laoshengle.core.service.taobao;
 
 import cn.laoshengle.core.constant.FeignConstant;
-import cn.laoshengle.core.entity.GoodsOriginalDataEntity;
+import cn.laoshengle.core.entity.request.ListEntity;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -23,5 +24,5 @@ public interface TaoBaoFeaturedService {
      * @param paramsList 从EXCEL中读取的数据
      */
     @PostMapping("insertTaoBaoFeaturedByEveryDay")
-    void insertTaoBaoFeaturedByEveryDay(List<GoodsOriginalDataEntity> paramsList);
+    void insertTaoBaoFeaturedByEveryDay(@RequestBody ListEntity paramsList);
 }

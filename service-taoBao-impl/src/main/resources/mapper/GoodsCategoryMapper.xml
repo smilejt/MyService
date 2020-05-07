@@ -46,7 +46,7 @@
         insert into taobao_goods_category (category_id, category_name)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            ( #{item.categoryId,jdbcType=VARCHAR}, #{item.categoryName,jdbcType=VARCHAR});
+            ( #{item.categoryId,jdbcType=VARCHAR}, #{item.categoryName,jdbcType=VARCHAR})
         </foreach>
     </insert>
 </mapper>

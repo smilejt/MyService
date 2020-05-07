@@ -43,15 +43,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from "taobao_goods_original_data"
+    from `taobao_goods_original_data`
     where system_id = #{systemId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from "taobao_goods_original_data"
+    delete from `taobao_goods_original_data`
     where system_id = #{systemId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="cn.laoshengle.taobao.impl.pojo.GoodsOriginalDataPojo" >
-    insert into "taobao_goods_original_data" (system_id, good_id, good_name, 
+    insert into `taobao_goods_original_data` (system_id, good_id, good_name,
       good_pic_url, good_detailed_url, good_category, 
       good_category_id, tao_bao_ke_url, good_price, 
       good_price_small, good_sales_month, income_ratio, 
@@ -75,7 +75,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.laoshengle.taobao.impl.pojo.GoodsOriginalDataPojo" >
-    insert into "taobao_goods_original_data"
+    insert into `taobao_goods_original_data`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="systemId != null" >
         system_id,
@@ -262,7 +262,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.laoshengle.taobao.impl.pojo.GoodsOriginalDataPojo" >
-    update "taobao_goods_original_data"
+    update `taobao_goods_original_data`
     <set >
       <if test="goodId != null" >
         good_id = #{goodId,jdbcType=BIGINT},
@@ -355,7 +355,7 @@
     where system_id = #{systemId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.laoshengle.taobao.impl.pojo.GoodsOriginalDataPojo" >
-    update "taobao_goods_original_data"
+    update `taobao_goods_original_data`
     set good_id = #{goodId,jdbcType=BIGINT},
       good_name = #{goodName,jdbcType=VARCHAR},
       good_pic_url = #{goodPicUrl,jdbcType=VARCHAR},
@@ -388,7 +388,7 @@
     where system_id = #{systemId,jdbcType=VARCHAR}
   </update>
   <insert id="insertByList" parameterType="java.util.List" >
-    insert into "taobao_goods_original_data" (system_id, good_id, good_name,
+    insert into `taobao_goods_original_data` (system_id, good_id, good_name,
       good_pic_url, good_detailed_url, good_category,
       good_category_id, tao_bao_ke_url, good_price,
       good_price_small, good_sales_month, income_ratio,

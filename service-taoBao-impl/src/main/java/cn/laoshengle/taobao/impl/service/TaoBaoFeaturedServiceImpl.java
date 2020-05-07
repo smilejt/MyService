@@ -2,12 +2,14 @@ package cn.laoshengle.taobao.impl.service;
 
 import cn.laoshengle.core.entity.CouponAmountUtilEntity;
 import cn.laoshengle.core.entity.GoodsOriginalDataEntity;
+import cn.laoshengle.core.entity.request.ListEntity;
 import cn.laoshengle.core.service.taobao.TaoBaoFeaturedService;
 import cn.laoshengle.core.utils.CouponUtil;
 import cn.laoshengle.taobao.impl.mapper.GoodsCategoryMapper;
 import cn.laoshengle.taobao.impl.mapper.GoodsOriginalDataMapper;
 import cn.laoshengle.taobao.impl.pojo.GoodsCategoryPojo;
 import cn.laoshengle.taobao.impl.pojo.GoodsOriginalDataPojo;
+import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -39,8 +41,10 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void insertTaoBaoFeaturedByEveryDay(List<GoodsOriginalDataEntity> paramsList) {
-        logger.info("[TaoBaoFeaturedServiceImpl].[insertTaoBaoFeaturedByEveryDay]------> In ParamsList Num = {}", paramsList.size());
+    public void insertTaoBaoFeaturedByEveryDay(ListEntity listEntity) {
+        logger.info("[TaoBaoFeaturedServiceImpl].[insertTaoBaoFeaturedByEveryDay]------> In ParamsList Num = {}", listEntity.getDataList().size());
+
+        List<GoodsOriginalDataEntity> paramsList = JSON.parseArray(JSON.toJSONString(listEntity.getDataList()), GoodsOriginalDataEntity.class);
 
         //类目查询参数
         Map<String, Object> tempMap = new HashMap<>();
@@ -60,7 +64,9 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
             int num = 0, batch = 0;
 
             //循环参入的的商品列表
-            for (GoodsOriginalDataEntity entity : paramsList) {
+//            for (GoodsOriginalDataEntity entity : paramsList) {
+            for (int i = 0; i < paramsList.size(); i++) {
+                GoodsOriginalDataEntity entity = paramsList.get(i);
                 pojo = new GoodsOriginalDataPojo();
                 BeanUtils.copyProperties(entity, pojo);
                 //设置系统ID
@@ -99,7 +105,7 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
                 num++;
 
                 //500个为一批新增到数据库
-                if (num >= 500) {
+                if (num >= 500 || (i == paramsList.size()-1)) {
                     batch++;
                     if (goodsOriginalDataMapper.insertByList(paramList) <= 0) {
                         logger.error("[TaoBaoFeaturedServiceImpl].[insertTaoBaoFeaturedByEveryDay]------> Article {} to {} failed to insert", (batch - 1) * 500, batch * 500);

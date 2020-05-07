@@ -208,4 +208,19 @@ public class CommonConstant {
      * 请求获取微信ACCESS_TOKEN
      */
     public static final String TASK_GET_WE_CHAT_TOKEN_URL = "http://laoshengle.cn/api/weChat/weChatService/getAccessToken";
+
+    /**
+     * 文件解析失败返回字符串
+     */
+    public static final String FILE_PARSING_FAILED_TEXT = "文件解析失败!";
+
+    /**
+     * 文件解析成功返回字符串
+     */
+    public static final String FILE_PARSED_SUCCESS_FULLY_TEXT = "文件解析失败!";
+
+    /**
+     * 文件上传成功返回字符串
+     */
+    public static final String FILE_UPLOAD_SUCCESS_TEXT = "文件上传成功!";
 }
