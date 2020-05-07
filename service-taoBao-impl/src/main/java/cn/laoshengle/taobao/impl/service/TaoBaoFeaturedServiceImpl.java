@@ -41,16 +41,17 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
         logger.info("[TaoBaoFeaturedServiceImpl].[insertTaoBaoFeaturedByEveryDay]------> In ParamsList Num = {}", paramsList.size());
 
         //类目查询参数
-        Map<String,Object> tempMap = new HashMap<>();
+        Map<String, Object> tempMap = new HashMap<>();
         List<GoodsCategoryPojo> resultCategory = goodsCategoryMapper.getGoodsCategory(tempMap);
-        Map<String,String> categoryMap = new HashMap<>();
-        if (resultCategory != null){
-            for (GoodsCategoryPojo pojo:resultCategory) {
-                categoryMap.put(pojo.getCategoryName(),pojo.getCategoryId());
+        List<GoodsCategoryPojo> addCategory = new ArrayList<>();
+        Map<String, String> categoryMap = new HashMap<>();
+        if (resultCategory != null) {
+            for (GoodsCategoryPojo pojo : resultCategory) {
+                categoryMap.put(pojo.getCategoryName(), pojo.getCategoryId());
             }
         }
 
-        if (!paramsList.isEmpty()){
+        if (!paramsList.isEmpty()) {
 
             List<GoodsOriginalDataPojo> paramList = new ArrayList<>();
             GoodsOriginalDataPojo pojo;
@@ -60,14 +61,30 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
             for (GoodsOriginalDataEntity entity : paramsList) {
                 pojo = new GoodsOriginalDataPojo();
                 BeanUtils.copyProperties(entity, pojo);
-
-                pojo.setSystemId(UUID.randomUUID().toString().replace("-",""));
+                //设置系统ID
+                pojo.setSystemId(UUID.randomUUID().toString().replace("-", ""));
+                //记录写入时间(此处为系统处理时间)
                 pojo.setInsertTime(new Date());
-                if (categoryMap.containsKey(pojo.getGoodCategory())){
+                if (categoryMap.containsKey(pojo.getGoodCategory())) {
+                    //系统存在该类目,关联类目ID
                     pojo.setGoodCategoryId(categoryMap.get(pojo.getGoodCategory()));
-                }else {
-
+                } else {
+                    //当前系统不存在该类目,新增类目
+                    GoodsCategoryPojo categoryPojo = new GoodsCategoryPojo();
+                    String categoryId = UUID.randomUUID().toString().replace("-", "");
+                    categoryPojo.setCategoryId(categoryId);
+                    categoryPojo.setCategoryName(pojo.getGoodCategory());
+                    addCategory.add(categoryPojo);
+                    //关联类目ID
+                    pojo.setGoodCategoryId(categoryId);
                 }
+                //将double数据转换为Long(Double为元,Long为分)
+                pojo.setGoodPriceSmall(Math.round(pojo.getGoodPrice() * 100));
+                //设置收入比例(万分之)
+                pojo.setIncomeRatioSmall(Math.round(pojo.getIncomeRatio() * 100));
+                //设置佣金金额(分)
+                pojo.setGoodCommissionSmall(Math.round(pojo.getGoodCommission() * 100));
+                //拆分优惠券
 
                 paramList.add(pojo);
             }
