@@ -17,6 +17,7 @@
         <module>service-task</module>
         <module>service-taoBao-impl</module>
         <module>service-taoBao</module>
+        <module>service-local</module>
     </modules>
 
     <properties>
