@@ -37,7 +37,7 @@ public class CouponUtil {
                     //去掉字符串中的'满'和'元'
                     couponString = couponString.replace(COUPON_PREFIX, NULL_STRING).replace(CHINESE_YUAN, NULL_STRING);
                     String[] couponArray = couponString.split(SEPARATION);
-                    return new CouponAmountUtilEntity(Long.parseLong(couponArray[0]), Long.parseLong(couponArray[1]));
+                    return new CouponAmountUtilEntity(Long.parseLong(couponArray[0]) * 100, Long.parseLong(couponArray[1]) * 100);
                 }
             } catch (Exception e) {
                 logger.error("[CouponUtil].[splitCouponString]------> 优惠券拆分异常:", e);
