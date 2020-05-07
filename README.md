@@ -21,7 +21,7 @@
     redisson：Redis操作工具
     zuul：网关及负载均衡等控制
     openfeign：完成内部服务之间的调用
-    poi：操作Excel(后期可能会用到)
+    poi：操作Excel
     lombok：简化实体对象代码(例如：get、set、toString方法)
 </pre>
 
@@ -31,14 +31,17 @@
     service-core：所有模块的基础模块(基本包含所有模块的对象、接口、常量等)
     service-core-api：所有API模块的基础模块
     service-core-db：所有操作数据库微服务的基础模块
+    service-local：本地模块(因线上服务器配置有限,该模块用于处理不需要线上,服务器性能消耗巨大的功能,占用8888端口)
     
 业务模块:
     service-weChat-impl：微信信息处理及持久化模块
+    service-taoBao-impl：淘宝信息处理及持久化模块
     
 API模块：
     service-gateway：网关模块(对外暴露接口,由网关统一分配请求,占用端口8080)
     service-weChat：微信API模块(用于处理微信相关逻辑调用)
-    service-task：定时任务模块(此模块只会运行一个)
+    service-task：定时任务模块(此模块只会运行一个,尚未启用,暂由本地计算机启动第三方Task完成)
+    service-taoBao：淘宝相关API模块
 </pre>
 
 ### 打包部署说明
