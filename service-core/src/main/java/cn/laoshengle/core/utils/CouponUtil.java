@@ -32,7 +32,7 @@ public class CouponUtil {
                 //判断是否是无条件券
                 if (couponString.contains(UNCONDITIONAL)) {
                     long couponDiscountAmount = Long.parseLong(couponString.replace(UNCONDITIONAL, NULL_STRING));
-                    return new CouponAmountUtilEntity(0L, couponDiscountAmount);
+                    return new CouponAmountUtilEntity(0L, couponDiscountAmount * 100);
                 } else {
                     //去掉字符串中的'满'和'元'
                     couponString = couponString.replace(COUPON_PREFIX, NULL_STRING).replace(CHINESE_YUAN, NULL_STRING);
