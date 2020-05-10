@@ -223,4 +223,5 @@ public class CommonConstant {
      * 文件上传成功返回字符串
      */
     public static final String FILE_UPLOAD_SUCCESS_TEXT = "文件上传成功!";
+
 }

@@ -10,6 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,8 +23,7 @@ import java.util.List;
  * @author: 龙逸
  * @createDate: 2020/05/07 20:40:57
  **/
-@RestController
-@RequestMapping(value = "local")
+@Controller
 public class LocalController {
 
     private static final Logger logger = LoggerFactory.getLogger(LocalController.class);
@@ -31,13 +31,20 @@ public class LocalController {
     @Resource
     LocalService localService;
 
+    @GetMapping("/")
+    public String index() {
+        logger.info("Index Local Controller");
+        return "index";
+    }
+
     /**
      * 测试接口00
      *
      * @param message GET入参
      * @return 结果字符串
      */
-    @GetMapping("hi")
+    @GetMapping("local/hi")
+    @ResponseBody
     public String hi(@RequestParam("message") String message) {
         logger.info("{} Local Controller", message);
         return String.format("%s Local Controller", message);
@@ -49,7 +56,8 @@ public class LocalController {
      * @param file 淘宝给的精选商品Excel
      * @return 接口请求成功
      */
-    @PostMapping("uploadFeaturedByEveryDay")
+    @PostMapping("local/uploadFeaturedByEveryDay")
+    @ResponseBody
     public String uploadFeaturedByEveryDay(@RequestParam("file") MultipartFile file) {
         logger.info("[TaoBaoController].[uploadFeaturedByEveryDay]------> In");
 

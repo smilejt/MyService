@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>service-local</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <script src="../static/jquery.js"></script>
+</head>
+<body>
+<form id="upload" enctype="local/uploadFeaturedByEveryDay" method="post">
+    <input type="file" name="file" id="pic"/>
+    <input type="button" value="提交" onclick="uploadPic();"/>
+    <span class="showUrl"></span>
+    <img src="" class="showPic" alt="">
+</form>
+</body>
+<script>
+    function uploadPic() {
+        var form = document.getElementById('upload'),
+            formData = new FormData(form);
+        $.ajax({
+            url:"http://127.0.0.1:8888/local/uploadFeaturedByEveryDay",
+            type:"post",
+            data:formData,
+            processData:false,
+            contentType:false,
+            success:function(res){
+                if(res){
+                    alert("上传成功！");
+                }
+                console.log(res);
+                $("#pic").val("");
+                $(".showUrl").html(res);
+                $(".showPic").attr("src",res);
+            },
+            error:function(err){
+                alert("网络连接失败,稍后重试",err);
+            }
+
+        })
+
+    }
+</script>
+</html>
