@@ -14,4 +14,24 @@ import java.io.Serializable;
 @ToString
 public class FeaturedRequestEntity implements Serializable {
     private static final long serialVersionUID = 5219451368296431613L;
+
+    /**
+     * 要查询的类目ID (全部时,不传)
+     */
+    private String categoryId;
+
+    /**
+     * 查询的商品名称
+     */
+    private String search;
+
+    /**
+     * 当前页数(默认为1)
+     */
+    private Integer pageIndex;
+
+    /**
+     * 每页显示数量(默认10)
+     */
+    private Integer pageSize;
 }

@@ -10,10 +10,12 @@
     docker: 服务运行容器(建议使用)
     jdk1.8：项目运行环境(jdk-1.8及以上)
     nginx：反向的代理80端口请求到zuul网关
+    solr：搜索引擎(尚未使用,后期实现商品的条件搜索)
 
 项目基础技术:
     SpringBoot 2.2.6.RELEASE：简化Spring应用的搭建、开发
     mybatis：数据持久化框架
+    mybatis-plus：MyBatis增强工具,提供了基础的CRUD操作
     jackson：操作json数据
     fastjson：操作json数据
     restTemplate：请求外部第三方接口(例如：微信)

@@ -24,6 +24,12 @@
             <artifactId>service-core-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <!-- 暂时不使用Solr搜索 -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-data-solr</artifactId>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <build>

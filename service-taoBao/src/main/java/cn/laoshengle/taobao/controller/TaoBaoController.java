@@ -1,6 +1,7 @@
 package cn.laoshengle.taobao.controller;
 
 import cn.laoshengle.core.constant.CommonConstant;
+import cn.laoshengle.core.entity.GoodsCategoryEntity;
 import cn.laoshengle.core.entity.GoodsOriginalDataEntity;
 import cn.laoshengle.core.entity.JsonResult;
 import cn.laoshengle.core.entity.request.FeaturedRequestEntity;
@@ -142,13 +143,32 @@ public class TaoBaoController {
 
     /**
      * 根据条件查询每日精选商品列表(分页)
+     * 每天10点x分之前查询的是前一天的数据,10点x分之后查询的是当天导入的数据
      *
      * @param params 查询参数
      * @return 查询结果集
      */
     @PostMapping("getFeaturedByParams")
     public JsonResult getFeaturedByParams(@RequestBody FeaturedRequestEntity params) {
+
+        logger.info("[TaoBaoController].[getFeaturedByParams]------> In Search Params = {}", params.toString());
         return null;
+    }
+
+    /**
+     * 查询所有分类
+     *
+     * @return 返回分类列表
+     */
+    @PostMapping("getAllCategory")
+    public JsonResult getAllCategory() {
+        logger.info("[TaoBaoController].[getAllCategory]------> In");
+
+        //调用接口查询数据
+        List<GoodsCategoryEntity> allCategory = taoBaoFeaturedService.getAllCategory();
+
+        logger.info("[TaoBaoController].[getAllCategory]------> Select Result Num = {}", allCategory == null ? 0 : allCategory.size());
+        return JsonResult.buildSuccess("data", allCategory);
     }
 
 }

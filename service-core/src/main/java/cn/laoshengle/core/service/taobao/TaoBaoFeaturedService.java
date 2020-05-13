@@ -1,6 +1,7 @@
 package cn.laoshengle.core.service.taobao;
 
 import cn.laoshengle.core.constant.FeignConstant;
+import cn.laoshengle.core.entity.GoodsCategoryEntity;
 import cn.laoshengle.core.entity.request.ListEntity;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
@@ -25,4 +26,12 @@ public interface TaoBaoFeaturedService {
      */
     @PostMapping("insertTaoBaoFeaturedByEveryDay")
     void insertTaoBaoFeaturedByEveryDay(@RequestBody ListEntity paramsList);
+
+    /**
+     * 获取所有类目列表
+     *
+     * @return 类目列表
+     */
+    @PostMapping("getAllCategory")
+    List<GoodsCategoryEntity> getAllCategory();
 }

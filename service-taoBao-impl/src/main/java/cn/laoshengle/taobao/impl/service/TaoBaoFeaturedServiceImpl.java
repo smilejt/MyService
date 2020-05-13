@@ -1,6 +1,7 @@
 package cn.laoshengle.taobao.impl.service;
 
 import cn.laoshengle.core.entity.CouponAmountUtilEntity;
+import cn.laoshengle.core.entity.GoodsCategoryEntity;
 import cn.laoshengle.core.entity.GoodsOriginalDataEntity;
 import cn.laoshengle.core.entity.request.ListEntity;
 import cn.laoshengle.core.service.taobao.TaoBaoFeaturedService;
@@ -105,7 +106,7 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
                 num++;
 
                 //500个为一批新增到数据库
-                if (num >= 500 || (i == paramsList.size()-1)) {
+                if (num >= 500 || (i == paramsList.size() - 1)) {
                     batch++;
                     if (goodsOriginalDataMapper.insertByList(paramList) <= 0) {
                         logger.error("[TaoBaoFeaturedServiceImpl].[insertTaoBaoFeaturedByEveryDay]------> Article {} to {} failed to insert", (batch - 1) * 500, batch * 500);
@@ -123,5 +124,23 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
                 logger.error("[TaoBaoFeaturedServiceImpl].[insertTaoBaoFeaturedByEveryDay]------> Category insertion failed");
             }
         }
+    }
+
+    @Override
+    public List<GoodsCategoryEntity> getAllCategory() {
+        logger.info("[TaoBaoFeaturedServiceImpl].[getAllCategory]------> In");
+        Map<String, Object> params = new HashMap<>();
+        List<GoodsCategoryPojo> goodsCategory = this.goodsCategoryMapper.getGoodsCategory(params);
+        logger.info("[TaoBaoFeaturedServiceImpl].[getAllCategory]------> goodsCategory.size = {}", goodsCategory == null ? 0 : goodsCategory.size());
+        List<GoodsCategoryEntity> resultList = new ArrayList<>();
+        if (null != goodsCategory) {
+            GoodsCategoryEntity entity;
+            for (GoodsCategoryPojo pojo : goodsCategory) {
+                entity = new GoodsCategoryEntity();
+                BeanUtils.copyProperties(pojo, entity);
+                resultList.add(entity);
+            }
+        }
+        return resultList;
     }
 }

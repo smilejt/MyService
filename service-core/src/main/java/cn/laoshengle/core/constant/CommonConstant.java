@@ -224,4 +224,13 @@ public class CommonConstant {
      */
     public static final String FILE_UPLOAD_SUCCESS_TEXT = "文件上传成功!";
 
+    /**
+     * 默认开始页数
+     */
+    public static final Integer PAGE_INDEX = 1;
+
+    /**
+     * 默认每页数量
+     */
+    public static final Integer PAGE_SIZE = 10;
 }

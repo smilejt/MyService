@@ -1,6 +1,7 @@
 package cn.laoshengle.taobao.impl.mapper;
 
 import cn.laoshengle.taobao.impl.pojo.GoodsCategoryPojo;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -14,15 +15,7 @@ import java.util.Map;
  */
 @Mapper
 @Repository
-public interface GoodsCategoryMapper {
-
-    /**
-     * 新增类目对象
-     *
-     * @param pojo 实体对象
-     * @return 受影响条数
-     */
-    int insert(GoodsCategoryPojo pojo);
+public interface GoodsCategoryMapper extends BaseMapper<GoodsCategoryPojo> {
 
     /**
      * 批量新增类目
