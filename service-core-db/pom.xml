@@ -34,9 +34,11 @@
             </exclusions>
         </dependency>
 
+        <!-- 腾讯云MySQL为5.7,不支持过高版本 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.30</version>
         </dependency>
 
         <dependency>

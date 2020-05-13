@@ -20,7 +20,7 @@ public class RedisUtil {
     /**
      * Redis数据库地址
      */
-    private static final String REDIS_URL = "94.191.101.181";
+    private static final String REDIS_URL = "175.24.109.253";
 
     /**
      * Redis数据库索引

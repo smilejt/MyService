@@ -1,6 +1,7 @@
 package cn.laoshengle.core.entity;
 
 import cn.laoshengle.core.constant.CommonConstant;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class JsonResult implements Serializable {
     /**
      * 返回对象
      */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, Object> objectMap;
 
     public JsonResult() {

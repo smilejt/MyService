@@ -2,6 +2,8 @@ package cn.laoshengle.taobao.controller;
 
 import cn.laoshengle.core.constant.CommonConstant;
 import cn.laoshengle.core.entity.GoodsOriginalDataEntity;
+import cn.laoshengle.core.entity.JsonResult;
+import cn.laoshengle.core.entity.request.FeaturedRequestEntity;
 import cn.laoshengle.core.entity.request.ListEntity;
 import cn.laoshengle.core.service.taobao.TaoBaoFeaturedService;
 import cn.laoshengle.core.utils.ThreadPoolUtil;
@@ -136,6 +138,17 @@ public class TaoBaoController {
         });
         //返回文件上传成功
         return CommonConstant.FILE_UPLOAD_SUCCESS_TEXT;
+    }
+
+    /**
+     * 根据条件查询每日精选商品列表(分页)
+     *
+     * @param params 查询参数
+     * @return 查询结果集
+     */
+    @PostMapping("getFeaturedByParams")
+    public JsonResult getFeaturedByParams(@RequestBody FeaturedRequestEntity params) {
+        return null;
     }
 
 }
