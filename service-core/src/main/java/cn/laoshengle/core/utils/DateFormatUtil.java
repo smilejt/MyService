@@ -1,5 +1,8 @@
 package cn.laoshengle.core.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,6 +23,8 @@ import java.util.List;
  **/
 @SuppressWarnings("all")
 public class DateFormatUtil {
+
+    private static final Logger logger = LoggerFactory.getLogger(DateFormatUtil.class);
 
     /**
      * 日期格式，年份，例如：2004，2008
@@ -106,6 +111,8 @@ public class DateFormatUtil {
      */
     public static final String DATE_FORMAT_MMDDHHMI = "MM-dd HH:mm";
 
+    private static final String STRING_SPLIT = ":";
+
 
     /* ************工具方法*************** */
 
@@ -144,6 +151,32 @@ public class DateFormatUtil {
         cal.setTime(date);
         int day = cal.get(Calendar.DATE);//获取日
         return day;
+    }
+
+    /**
+     * 获取某时间的小时数
+     *
+     * @param date 入参时间
+     * @return
+     */
+    public static Integer getHour(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);//获取小时
+        return hour;
+    }
+
+    /**
+     * 获取某时间的分钟数
+     *
+     * @param date
+     * @return
+     */
+    public static Integer getMinute(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int minute = cal.get(Calendar.MINUTE);//获取分钟数
+        return minute;
     }
 
     /**
@@ -238,8 +271,7 @@ public class DateFormatUtil {
      * @param defaultValue 异常时返回的默认值
      * @return
      */
-    public static Date parseStrToDate(String strTime, String timeFromat,
-                                      Date defaultValue) {
+    public static Date parseStrToDate(String strTime, String timeFromat, Date defaultValue) {
         try {
             DateFormat dateFormat = new SimpleDateFormat(timeFromat);
             return dateFormat.parse(strTime);
@@ -860,5 +892,36 @@ public class DateFormatUtil {
         c.set(Calendar.SECOND, 59);
         c.set(Calendar.MILLISECOND, 999);
         return c.getTime();
+    }
+
+    /**
+     * 获取当前时间是否超过指定时间
+     *
+     * @param timeString HH:MM (例如: 10:30)
+     * @return 计算结果
+     */
+    public static boolean getYesterDay(String timeString) {
+        boolean result = false;
+        try {
+            String[] times = timeString.split(STRING_SPLIT);
+            Date newDate = new Date();
+            int hour = getHour(newDate);
+            if (times.length != 2) {
+                logger.error("[DateFormatUtil].[getYesterDay]------> Error Time String : {}", times);
+            } else {
+                if (hour - Integer.parseInt(times[0]) < 0) {
+                    result = true;
+                } else if (hour - Integer.parseInt(times[0]) == 0) {
+                    if (getMinute(newDate) - Integer.parseInt(times[1]) < 0) {
+                        result = true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("[DateFormatUtil].[getYesterDay]------> An Exception Occurs: ", e);
+        }
+
+
+        return result;
     }
 }

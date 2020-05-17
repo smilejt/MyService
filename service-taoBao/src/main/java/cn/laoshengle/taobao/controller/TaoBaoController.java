@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -152,7 +153,25 @@ public class TaoBaoController {
     public JsonResult getFeaturedByParams(@RequestBody FeaturedRequestEntity params) {
 
         logger.info("[TaoBaoController].[getFeaturedByParams]------> In Search Params = {}", params.toString());
-        return null;
+
+        //判断分页参数是否存在
+        if (null == params.getPageIndex() || params.getPageIndex() <= 0) {
+            params.setPageIndex(CommonConstant.PAGE_INDEX);
+        }
+
+        if (null == params.getPageSize() || params.getPageSize() <= 0) {
+            params.setPageSize(CommonConstant.PAGE_SIZE);
+        }
+
+        //设置处理请求时间
+        params.setNewDate(new Date());
+
+        //查询当页数据
+        List<GoodsOriginalDataEntity> featuredByParams = taoBaoFeaturedService.getFeaturedByParams(params);
+        //统计满足查询条件的数据条数
+        Long countNum = taoBaoFeaturedService.countFeaturedByParams(params);
+
+        return JsonResult.buildSuccess("data", featuredByParams).addObject("count", countNum);
     }
 
     /**

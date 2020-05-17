@@ -67,7 +67,7 @@ public class JsonResult implements Serializable {
     public static JsonResult buildSuccess(String key, Object value) {
         Map<String, Object> map = new HashMap<>();
         map.put(key, value);
-        return build(Boolean.TRUE, null, null, map);
+        return build(Boolean.TRUE, CommonConstant.RESULT_SUCCESS_TEXT, CommonConstant.RESULT_SUCCESS_CODE, map);
     }
 
     public static JsonResult build(Boolean success, String message, String code, Map<String, Object> objectMap) {

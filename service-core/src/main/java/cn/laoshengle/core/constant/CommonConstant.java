@@ -233,4 +233,19 @@ public class CommonConstant {
      * 默认每页数量
      */
     public static final Integer PAGE_SIZE = 10;
+
+    /**
+     * 每日精选最迟上传时间
+     */
+    public static final String LAST_UPLOAD_TIME = "10:30";
+
+    /**
+     * 返回对象处理成功
+     */
+    public static final String RESULT_SUCCESS_TEXT = "处理成功";
+
+    /**
+     * 返回对象处理成功代码
+     */
+    public static final String RESULT_SUCCESS_CODE = "2000";
 }

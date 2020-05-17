@@ -1,11 +1,15 @@
 package cn.laoshengle.taobao.impl.service;
 
+import cn.laoshengle.core.constant.CommonConstant;
 import cn.laoshengle.core.entity.CouponAmountUtilEntity;
 import cn.laoshengle.core.entity.GoodsCategoryEntity;
 import cn.laoshengle.core.entity.GoodsOriginalDataEntity;
+import cn.laoshengle.core.entity.request.FeaturedRequestEntity;
 import cn.laoshengle.core.entity.request.ListEntity;
 import cn.laoshengle.core.service.taobao.TaoBaoFeaturedService;
+import cn.laoshengle.core.utils.BeanUtil;
 import cn.laoshengle.core.utils.CouponUtil;
+import cn.laoshengle.core.utils.DateFormatUtil;
 import cn.laoshengle.taobao.impl.mapper.GoodsCategoryMapper;
 import cn.laoshengle.taobao.impl.mapper.GoodsOriginalDataMapper;
 import cn.laoshengle.taobao.impl.pojo.GoodsCategoryPojo;
@@ -65,7 +69,6 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
             int num = 0, batch = 0;
 
             //循环参入的的商品列表
-//            for (GoodsOriginalDataEntity entity : paramsList) {
             for (int i = 0; i < paramsList.size(); i++) {
                 GoodsOriginalDataEntity entity = paramsList.get(i);
                 pojo = new GoodsOriginalDataPojo();
@@ -142,5 +145,68 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
             }
         }
         return resultList;
+    }
+
+    @Override
+    public List<GoodsOriginalDataEntity> getFeaturedByParams(FeaturedRequestEntity params) {
+
+        Map<String, Object> queryParam = BeanUtil.beanToMap(params);
+
+        //设置分页参数
+        if (null == params.getPageSize() || params.getPageSize() <= 0) {
+            queryParam.put("limitSize", CommonConstant.PAGE_SIZE);
+        } else {
+            queryParam.put("limitSize", params.getPageSize());
+        }
+
+        if (null == params.getPageIndex() || params.getPageIndex() <= 0) {
+            queryParam.put("limitIndex", 0);
+        } else {
+            queryParam.put("limitIndex", (params.getPageIndex() - 1) * ((null == params.getPageSize() || params.getPageSize() <= 0) ? CommonConstant.PAGE_SIZE : params.getPageSize()));
+        }
+
+        //设置时间参数
+        if (DateFormatUtil.getYesterDay(CommonConstant.LAST_UPLOAD_TIME)) {
+            //查询前一天数据
+            queryParam.put("queryDay", DateFormatUtil.parseDateToStr(DateFormatUtil.addDate((params.getNewDate() == null ? new Date() : params.getNewDate()), 0, 0, -1, 0, 0, 0, 0), DateFormatUtil.YYYY_MM_DD));
+        } else {
+            //查询今天数据
+            queryParam.put("queryDay", DateFormatUtil.parseDateToStr(params.getNewDate() == null ? new Date() : params.getNewDate(), DateFormatUtil.YYYY_MM_DD));
+        }
+
+        logger.info("queryParam = {}", JSON.toJSONString(queryParam));
+
+        //查询数据集
+        List<GoodsOriginalDataPojo> featuredByParams = goodsOriginalDataMapper.getFeaturedByParams(queryParam);
+
+        //复制返回对象
+        List<GoodsOriginalDataEntity> result = new ArrayList<>();
+        if (null != featuredByParams && featuredByParams.size() > 0) {
+            GoodsOriginalDataEntity entity;
+            for (GoodsOriginalDataPojo pojo : featuredByParams) {
+                entity = new GoodsOriginalDataEntity();
+                BeanUtils.copyProperties(pojo, entity);
+                result.add(entity);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Long countFeaturedByParams(FeaturedRequestEntity params) {
+
+        Map<String, Object> queryParam = BeanUtil.beanToMap(params);
+
+        //设置时间参数
+        if (DateFormatUtil.getYesterDay(CommonConstant.LAST_UPLOAD_TIME)) {
+            //查询前一天数据
+            queryParam.put("queryDay", DateFormatUtil.parseDateToStr(DateFormatUtil.addDate(params.getNewDate() == null ? new Date() : params.getNewDate(), 0, 0, -1, 0, 0, 0, 0), DateFormatUtil.YYYY_MM_DD));
+        } else {
+            //查询今天数据
+            queryParam.put("queryDay", DateFormatUtil.parseDateToStr(params.getNewDate() == null ? new Date() : params.getNewDate(), DateFormatUtil.YYYY_MM_DD));
+        }
+
+        //查询数据集
+        return goodsOriginalDataMapper.countFeaturedByParams(queryParam);
     }
 }

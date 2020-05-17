@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @description: 每日精选查询条件
@@ -24,6 +25,11 @@ public class FeaturedRequestEntity implements Serializable {
      * 查询的商品名称
      */
     private String search;
+
+    /**
+     * 请求时间
+     */
+    private Date newDate;
 
     /**
      * 当前页数(默认为1)

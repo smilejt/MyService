@@ -2,6 +2,8 @@ package cn.laoshengle.core.service.taobao;
 
 import cn.laoshengle.core.constant.FeignConstant;
 import cn.laoshengle.core.entity.GoodsCategoryEntity;
+import cn.laoshengle.core.entity.GoodsOriginalDataEntity;
+import cn.laoshengle.core.entity.request.FeaturedRequestEntity;
 import cn.laoshengle.core.entity.request.ListEntity;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
@@ -34,4 +36,24 @@ public interface TaoBaoFeaturedService {
      */
     @PostMapping("getAllCategory")
     List<GoodsCategoryEntity> getAllCategory();
+
+    /**
+     * 根据条件查询每日精选商品列表(分页)
+     * 每天10点x分之前查询的是前一天的数据,10点x分之后查询的是当天导入的数据
+     *
+     * @param params 查询参数
+     * @return 查询结果
+     */
+    @PostMapping("getFeaturedByParams")
+    List<GoodsOriginalDataEntity> getFeaturedByParams(@RequestBody FeaturedRequestEntity params);
+
+    /**
+     * 据条件查询每日精选商品条数
+     * 每天10点x分之前查询的是前一天的数据,10点x分之后查询的是当天导入的数据
+     *
+     * @param params 查询参数
+     * @return 统计结果
+     */
+    @PostMapping("countFeaturedByParams")
+    Long countFeaturedByParams(@RequestBody FeaturedRequestEntity params);
 }
