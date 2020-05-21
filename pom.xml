@@ -18,6 +18,8 @@
         <module>service-taoBao-impl</module>
         <module>service-taoBao</module>
         <module>service-local</module>
+        <module>service-miNiProject</module>
+        <module>service-miNiProject-impl</module>
     </modules>
 
     <properties>
