@@ -142,7 +142,12 @@ public class CommonConstant {
     /**
      * 请求失败字符串
      */
-    public static final String FAIL_MSG = "请求失败";
+    public static final String FAIL_MSG = "处理失败";
+
+    /**
+     * 返回对象处理失败代码
+     */
+    public static final String FAIL_CODE = "2001";
 
     /**
      * 存入Redis中微信Token的Key

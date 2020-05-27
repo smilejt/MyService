@@ -23,7 +23,7 @@
     redisson：Redis操作工具
     zuul：网关及负载均衡等控制
     openfeign：完成内部服务之间的调用
-    poi：操作Excel
+    EasyExcel：操作Excel(阿里开源Excel处理工具)
     lombok：简化实体对象代码(例如：get、set、toString方法)
 </pre>
 

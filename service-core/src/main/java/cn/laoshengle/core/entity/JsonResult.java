@@ -53,7 +53,7 @@ public class JsonResult implements Serializable {
     }
 
     public static JsonResult buildFailMsg(String message) {
-        return build(Boolean.FALSE, message, null, null);
+        return build(Boolean.FALSE, message, CommonConstant.FAIL_CODE, null);
     }
 
     public static JsonResult buildSuccess() {
@@ -61,7 +61,7 @@ public class JsonResult implements Serializable {
     }
 
     public static JsonResult buildSuccess(Map<String, Object> objectMap) {
-        return build(Boolean.TRUE, null, null, objectMap);
+        return build(Boolean.TRUE, CommonConstant.RESULT_SUCCESS_TEXT, CommonConstant.RESULT_SUCCESS_CODE, objectMap);
     }
 
     public static JsonResult buildSuccess(String key, Object value) {
