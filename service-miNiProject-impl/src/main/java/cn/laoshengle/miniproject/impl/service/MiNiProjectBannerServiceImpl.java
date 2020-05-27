@@ -4,6 +4,8 @@ import cn.laoshengle.core.entity.MiNiProjectBannerEntity;
 import cn.laoshengle.core.service.miniproject.MiNiProjectBannerService;
 import cn.laoshengle.miniproject.impl.mapper.MiNiProjectBannerMapper;
 import cn.laoshengle.miniproject.impl.pojo.MiNiProjectBannerPojo;
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -38,10 +40,11 @@ public class MiNiProjectBannerServiceImpl implements MiNiProjectBannerService {
         logger.info("[MiNiProjectBannerServiceImpl].[getBannerByMiNiProject]------> In");
 
         //封装查询参数
-        Map<String,Object> params = new HashMap<>();
-        params.put("enableMark",1);
-        params.put("deleteMark",1);
-        List<MiNiProjectBannerPojo> miNiProjectBanner = miNiProjectBannerMapper.getBannerListByParams(params);
+        QueryWrapper<MiNiProjectBannerPojo> query = new QueryWrapper<>();
+        query.eq("enable_mark",1);
+        query.eq("delete_mark",1);
+        query.orderByAsc("sort");
+        List<MiNiProjectBannerPojo> miNiProjectBanner = miNiProjectBannerMapper.selectList(query);
 
         logger.info("[MiNiProjectBannerServiceImpl].[getBannerByMiNiProject]------> miNiProjectBanner.size = {}", miNiProjectBanner == null ? 0 : miNiProjectBanner.size());
         List<MiNiProjectBannerEntity> result = new ArrayList<>();

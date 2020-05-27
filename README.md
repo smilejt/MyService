@@ -14,7 +14,7 @@
 
 项目基础技术:
     SpringBoot 2.2.6.RELEASE：简化Spring应用的搭建、开发
-    mybatis：数据持久化框架
+    mybatis：数据持久化框架(后期基本由MyBatis Plus完成)
     mybatis-plus：MyBatis增强工具,提供了基础的CRUD操作
     jackson：操作json数据
     fastjson：操作json数据
@@ -38,12 +38,15 @@
 业务模块:
     service-weChat-impl：微信信息处理及持久化模块
     service-taoBao-impl：淘宝信息处理及持久化模块
+    service-miNiProject-impl：微信小程序处理及持久化模块
     
 API模块：
     service-gateway：网关模块(对外暴露接口,由网关统一分配请求,占用端口8080)
     service-weChat：微信API模块(用于处理微信相关逻辑调用)
     service-task：定时任务模块(此模块只会运行一个,尚未启用,暂由本地计算机启动第三方Task完成)
     service-taoBao：淘宝相关API模块
+    service-miNiProject：微信小程序API模块
+    service-file：文件模块(未启用)
 </pre>
 
 ### 打包部署说明

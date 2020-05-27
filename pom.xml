@@ -20,6 +20,7 @@
         <module>service-local</module>
         <module>service-miNiProject</module>
         <module>service-miNiProject-impl</module>
+        <module>service-file</module>
     </modules>
 
     <properties>

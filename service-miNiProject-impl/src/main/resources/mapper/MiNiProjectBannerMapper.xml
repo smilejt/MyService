@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="cn.laoshengle.miniproject.impl.pojo.MiNiProjectBannerPojo">
         <id column="system_id" property="systemId" jdbcType="VARCHAR"/>
         <result column="banner_name" property="bannerName" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="BIGINT"/>
         <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR"/>
         <result column="enable_mark" property="enableMark" jdbcType="BIGINT"/>
         <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
@@ -12,7 +13,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        system_id,banner_name,banner_url,enable_mark,create_user,create_time,delete_mark
+        system_id,banner_name,sort,banner_url,enable_mark,create_user,create_time,delete_mark
     </sql>
 
     <insert id="insert" parameterType="cn.laoshengle.miniproject.impl.pojo.MiNiProjectBannerPojo">
@@ -28,6 +29,9 @@
             </if>
             <if test="bannerName != null">
                 banner_name,
+            </if>
+            <if test="sort != null">
+                sort,
             </if>
             <if test="bannerUrl != null">
                 banner_url,
@@ -51,6 +55,9 @@
             </if>
             <if test="bannerName != null">
                 #{bannerName,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=BIGINT},
             </if>
             <if test="bannerUrl != null">
                 #{bannerUrl, jdbcType=VARCHAR},
@@ -82,5 +89,6 @@
                 AND delete_mark = #{deleteMark,jdbcType=BIGINT}
             </if>
         </where>
+        order by sort asc
     </select>
 </mapper>

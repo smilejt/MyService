@@ -8,14 +8,15 @@ import lombok.ToString;
 import java.util.Date;
 
 /**
- * @description: 微信小程序Banner实体
+ * @description: 微信小程序菜单实体
  * @author: 龙逸
- * @createDate: 2020/05/23 15:39:50
+ * @createDate: 2020/05/24 14:59:54
  **/
 @Data
 @ToString
-@TableName(value = "mini_project_banner")
-public class MiNiProjectBannerPojo {
+@TableName(value = "mini_project_menu")
+public class MiNiProjectMenuPojo {
+
     /**
      * 系统ID
      */
@@ -23,9 +24,14 @@ public class MiNiProjectBannerPojo {
     private String systemId;
 
     /**
-     * Banner名称
+     * 菜单名称
      */
-    private String bannerName;
+    private String menuName;
+
+    /**
+     * 菜单图标URL
+     */
+    private String menuIconUrl;
 
     /**
      * 排序号
@@ -33,17 +39,12 @@ public class MiNiProjectBannerPojo {
     private Integer sort;
 
     /**
-     * Banner的URL地址
-     */
-    private String bannerUrl;
-
-    /**
      * 跳转路径
      */
     private String linkUrl;
 
     /**
-     * 启动标识
+     * 启用标识:0-禁用，1-启用
      */
     private Integer enableMark;
 

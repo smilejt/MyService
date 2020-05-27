@@ -27,9 +27,19 @@ public class MiNiProjectBannerEntity implements Serializable {
     private String bannerName;
 
     /**
+     * 排序号
+     */
+    private Integer sort;
+
+    /**
      * Banner的URL地址
      */
     private String bannerUrl;
+
+    /**
+     * 跳转路径
+     */
+    private String linkUrl;
 
     /**
      * 启动标识

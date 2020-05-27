@@ -1,5 +1,6 @@
 package cn.laoshengle.core.utils;
 
+import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -907,7 +908,7 @@ public class DateFormatUtil {
             Date newDate = new Date();
             int hour = getHour(newDate);
             if (times.length != 2) {
-                logger.error("[DateFormatUtil].[getYesterDay]------> Error Time String : {}", times);
+                logger.error("[DateFormatUtil].[getYesterDay]------> Error Time String : {}", JSON.toJSONString(times));
             } else {
                 if (hour - Integer.parseInt(times[0]) < 0) {
                     result = true;
