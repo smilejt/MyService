@@ -94,8 +94,8 @@ public class LocalServiceImpl implements LocalService {
                 //计数当前是多少个
                 num++;
 
-                //500个为一批新增到数据库
-                if (num >= 500 || (i == paramsList.size()-1)) {
+                //3000个为一批新增到数据库
+                if (num >= 3000 || (i == paramsList.size()-1)) {
                     batch++;
                     if (goodsOriginalDataMapper.insertByList(paramList) <= 0) {
                         logger.error("[TaoBaoFeaturedServiceImpl].[insertTaoBaoFeaturedByEveryDay]------> Article {} to {} failed to insert", (batch - 1) * 500, batch * 500);

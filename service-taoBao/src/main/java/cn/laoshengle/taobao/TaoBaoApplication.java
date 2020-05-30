@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  **/
 @EnableDiscoveryClient
 @SpringBootApplication
-@EnableFeignClients({"cn.laoshengle.core.service.taobao"})
+@EnableFeignClients({"cn.laoshengle.core.service.*"})
 public class TaoBaoApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(TaoBaoApplication.class);

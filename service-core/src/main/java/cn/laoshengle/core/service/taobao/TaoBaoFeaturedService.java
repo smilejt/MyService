@@ -5,6 +5,7 @@ import cn.laoshengle.core.entity.GoodsCategoryEntity;
 import cn.laoshengle.core.entity.GoodsOriginalDataEntity;
 import cn.laoshengle.core.entity.request.FeaturedRequestEntity;
 import cn.laoshengle.core.entity.request.ListEntity;
+import cn.laoshengle.core.service.taobao.impl.TaoBaoFeaturedServiceFallBackImpl;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ import java.util.List;
  * @createDate: 2020/05/05 13:14:21
  **/
 @Service
-@FeignClient(value = FeignConstant.TAO_BAO_SERVICE_NAME, contextId = "taoBaoFeaturedService", path = "api/V1/taoBao/taoBaoFeaturedService")
+@FeignClient(value = FeignConstant.TAO_BAO_SERVICE_NAME, contextId = "taoBaoFeaturedService", path = "api/V1/taoBao/taoBaoFeaturedService", fallback = TaoBaoFeaturedServiceFallBackImpl.class)
 public interface TaoBaoFeaturedService {
 
     /**

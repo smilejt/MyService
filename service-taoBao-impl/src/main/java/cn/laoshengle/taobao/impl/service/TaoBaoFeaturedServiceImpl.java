@@ -109,10 +109,10 @@ public class TaoBaoFeaturedServiceImpl implements TaoBaoFeaturedService {
                 num++;
 
                 //500个为一批新增到数据库
-                if (num >= 500 || (i == paramsList.size() - 1)) {
+                if (num >= 3000 || (i == paramsList.size() - 1)) {
                     batch++;
                     if (goodsOriginalDataMapper.insertByList(paramList) <= 0) {
-                        logger.error("[TaoBaoFeaturedServiceImpl].[insertTaoBaoFeaturedByEveryDay]------> Article {} to {} failed to insert", (batch - 1) * 500, batch * 500);
+                        logger.error("[TaoBaoFeaturedServiceImpl].[insertTaoBaoFeaturedByEveryDay]------> Article {} to {} failed to insert", (batch - 1) * 3000, batch * 3000);
                     }
                     //不管是否插入成功,清空之前的记录
                     num = 0;
