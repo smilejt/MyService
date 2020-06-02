@@ -62,29 +62,29 @@ public class TaoBaoController {
     @PostMapping("uploadFeaturedByEveryDay")
     public JsonResult uploadFeaturedByEveryDay(@RequestParam("file") MultipartFile file) {
         logger.info("[TaoBaoController].[uploadFeaturedByEveryDay]------> In");
+        //异步请求Service
+        ThreadPoolUtil.newTask(() -> {
 
-        //处理文件
-        logger.info("[TaoBaoController].[uploadFeaturedByEveryDay]-----> Process File");
-        try {
-            List<GoodsOriginalDataEntity> params = new ArrayList<>();
+            //处理文件
+            logger.info("[TaoBaoController].[uploadFeaturedByEveryDay]-----> Asynchronous Process File");
+            try {
+                List<GoodsOriginalDataEntity> params = new ArrayList<>();
 
-            //使用EasyExcel读取Excel
-            EasyExcel.read(file.getInputStream(), ExcelGoodEntity.class, new EasyExcelListener(params)).sheet().doRead();
+                //使用EasyExcel读取Excel
+                EasyExcel.read(file.getInputStream(), ExcelGoodEntity.class, new EasyExcelListener(params)).sheet().doRead();
 
-            logger.info("[TaoBaoController].[uploadFeaturedByEveryDay]------> File Processing Succeeded");
-            ListEntity paramsList = new ListEntity();
-            paramsList.setDataList(params);
-            //异步请求Service
-            ThreadPoolUtil.newTask(() -> {
-                logger.info("[TaoBaoController].[uploadFeaturedByEveryDay]------> Asynchronous Request Start");
+                logger.info("[TaoBaoController].[uploadFeaturedByEveryDay]------> File Processing Succeeded");
+                ListEntity paramsList = new ListEntity();
+                paramsList.setDataList(params);
+
+                logger.info("[TaoBaoController].[uploadFeaturedByEveryDay]------> Request Start");
                 taoBaoFeaturedService.insertTaoBaoFeaturedByEveryDay(paramsList);
-            });
 
-            return JsonResult.buildSuccess();
-        } catch (Exception e) {
-            logger.error("[TaoBaoController].[uploadFeaturedByEveryDay]------> Error:", e);
-            return JsonResult.buildFail();
-        }
+            } catch (Exception e) {
+                logger.error("[TaoBaoController].[uploadFeaturedByEveryDay]------> Error:", e);
+            }
+        });
+        return JsonResult.buildSuccess();
     }
 
     /**
