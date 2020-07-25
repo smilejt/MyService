@@ -58,31 +58,19 @@
         </dependencies>
     </dependencyManagement>
 
-    <repositories>
+    <!-- 发布maven私服 -->
+    <distributionManagement>
         <repository>
-            <id>central</id>
-            <name>阿里云代理Apache的central库</name>
-            <url>https://maven.aliyun.com/repository/central</url>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshots</name>
+            <url>http://nexus.laoshengle.cn:8081/repository/maven-snapshots/</url>
         </repository>
-
-        <repository>
-            <id>jcenter</id>
-            <name>阿里云代理的jcenter库</name>
-            <url>https://maven.aliyun.com/repository/jenter</url>
-        </repository>
-
-        <repository>
-            <id>spring</id>
-            <name>阿里云代理的spring库</name>
-            <url>https://maven.aliyun.com/repository/spring</url>
-        </repository>
-
-        <repository>
-            <id>spring-plugin</id>
-            <name>阿里云代理的spring-plugin库</name>
-            <url>https://maven.aliyun.com/repository/spring-plugin</url>
-        </repository>
-    </repositories>
+        <snapshotRepository>
+            <id>nexus-releases</id>
+            <name>Nexus Releases</name>
+            <url>http://nexus.laoshengle.cn:8081/repository/maven-releases/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <build>
         <pluginManagement>
