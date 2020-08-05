@@ -1,4 +1,4 @@
-package cn.laoshengle.gateway;
+package cn.laoshengle.zuul;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,12 +15,12 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 @SpringBootApplication
 @EnableZuulProxy
 @EnableDiscoveryClient
-public class GatewayApplication {
+public class ZuulApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(GatewayApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(ZuulApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(GatewayApplication.class, args);
-        logger.info("---------------------GatewayApplication Successful Start---------------------");
+        SpringApplication.run(ZuulApplication.class, args);
+        logger.info("---------------------ZuulApplication Successful Start---------------------");
     }
 }

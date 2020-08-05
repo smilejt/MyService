@@ -11,7 +11,7 @@
         <module>service-core</module>
         <module>service-core-api</module>
         <module>service-core-db</module>
-        <module>service-gateway</module>
+        <module>service-zuul</module>
         <module>service-weChat</module>
         <module>service-weChat-impl</module>
         <module>service-task</module>

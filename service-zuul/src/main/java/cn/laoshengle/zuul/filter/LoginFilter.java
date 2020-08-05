@@ -1,4 +1,4 @@
-package cn.laoshengle.gateway.filter;
+package cn.laoshengle.zuul.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
