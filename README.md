@@ -41,7 +41,8 @@
     service-miNiProject-impl：微信小程序处理及持久化模块
     
 API模块：
-    service-gateway：网关模块(对外暴露接口,由网关统一分配请求,占用端口8080)
+    service-zuul：网关模块(目前使用,对外暴露接口,由网关统一分配请求,占用端口8080)
+    service-gateway：网关模块(后期将替代service-zuul网关)
     service-weChat：微信API模块(用于处理微信相关逻辑调用)
     service-task：定时任务模块(此模块只会运行一个,尚未启用,暂由本地计算机启动第三方Task完成)
     service-taoBao：淘宝相关API模块
