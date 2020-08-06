@@ -28,18 +28,6 @@
         message_id,to_user_name,from_user_name,create_time,msg_type,content,pic_url,media_id,format,recognition,thumb_media_id,location_X,location_Y,scale,label,title,description,url,msg_id,write_time
     </sql>
 
-    <insert id="insert" parameterType="cn.laoshengle.wechat.impl.pojo.WeChatMessagePojo">
-        insert into wechat_message (message_id, to_user_name, from_user_name, create_time, msg_type, content, pic_url,
-                                    media_id, format, recognition, thumb_media_id, location_X, location_Y, scale, label,
-                                    title, description, url, msg_id, write_time)
-        values ( #{messageId,jdbcType=VARCHAR}, #{toUserName,jdbcType=VARCHAR}, #{fromUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
-               , #{msgType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, #{mediaId,jdbcType=VARCHAR}
-               , #{format,jdbcType=VARCHAR}, #{recognition,jdbcType=VARCHAR}, #{thumbMediaId,jdbcType=VARCHAR}, #{locationX,jdbcType=DOUBLE}
-               , #{locationY,jdbcType=DOUBLE}, #{scale,jdbcType=INTEGER}, #{label,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}
-               , #{description,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{msgId,jdbcType=BIGINT}
-               , #{writeTime,jdbcType=TIMESTAMP});
-    </insert>
-
     <insert id="insertSelective" parameterType="cn.laoshengle.wechat.impl.pojo.WeChatMessagePojo">
         insert into wechat_message
         <trim prefix="(" suffix=")" suffixOverrides=",">

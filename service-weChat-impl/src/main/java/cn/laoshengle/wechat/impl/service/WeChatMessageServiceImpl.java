@@ -2,8 +2,11 @@ package cn.laoshengle.wechat.impl.service;
 
 import cn.laoshengle.core.entity.request.WeChatMessage;
 import cn.laoshengle.core.service.wechat.WeChatMessageService;
+import cn.laoshengle.core.utils.BaseUtil;
 import cn.laoshengle.wechat.impl.mapper.WeChatMessageMapper;
 import cn.laoshengle.wechat.impl.pojo.WeChatMessagePojo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @description: 微信服务实现类
@@ -24,22 +26,28 @@ import java.util.UUID;
 @RequestMapping("api/V1/weChat/weChatMessageService")
 public class WeChatMessageServiceImpl implements WeChatMessageService {
 
+    private static final Logger logger = LoggerFactory.getLogger(WeChatMessageServiceImpl.class);
+
     @Resource
-    WeChatMessageMapper weChatMessageMapper;
+    private WeChatMessageMapper weChatMessageMapper;
+
+    private static final Long ONE_THOUSAND = 1000L;
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public String handleWeChatTextMessage(WeChatMessage weChatMessage) {
 
         WeChatMessagePojo weChatMessagePojo = new WeChatMessagePojo();
         BeanUtils.copyProperties(weChatMessage, weChatMessagePojo);
         //设置UUID
-        weChatMessagePojo.setMessageId(UUID.randomUUID().toString().replace("-", ""));
+        weChatMessagePojo.setMessageId(BaseUtil.getUUID());
         weChatMessagePojo.setWriteTime(new Date());
+
+        weChatMessagePojo.setCreateTime(new Date(weChatMessage.getMsgCreateTime() * ONE_THOUSAND));
 
         String resultString;
 
-        if (weChatMessageMapper.insertSelective(weChatMessagePojo) == 1) {
+        if (weChatMessageMapper.insert(weChatMessagePojo) == 1) {
             //写入数据库成功
             resultString = "您的留言我们已经记录下来了,将会尽快处理!";
         } else {

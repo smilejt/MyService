@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @description: 微信接收消息对象
@@ -37,7 +36,7 @@ public class WeChatMessage implements Serializable {
      * 消息创建时间(时间戳)
      */
     @JacksonXmlProperty(localName = "CreateTime")
-    private Date createTime;
+    private Long msgCreateTime;
 
     /**
      * 消息类型

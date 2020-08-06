@@ -1,5 +1,7 @@
 package cn.laoshengle.core.constant;
 
+import java.util.UUID;
+
 /**
  * @description: 通用常量
  * @author: 龙逸
@@ -253,4 +255,9 @@ public class CommonConstant {
      * 返回对象处理成功代码
      */
     public static final String RESULT_SUCCESS_CODE = "2000";
+
+    /**
+     * String的减号
+     */
+    public static final String SYMBOL_MINUS = "-";
 }

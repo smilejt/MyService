@@ -1,5 +1,7 @@
 package cn.laoshengle.wechat.impl.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
 
@@ -12,11 +14,13 @@ import java.util.Date;
  **/
 @Data
 @ToString
+@TableName("wechat_message")
 public class WeChatMessagePojo {
 
     /**
      * 主键ID
      */
+    @TableId(value = "message_id")
     private String messageId;
 
     /**

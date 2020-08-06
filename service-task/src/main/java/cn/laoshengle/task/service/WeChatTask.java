@@ -31,18 +31,12 @@ public class WeChatTask {
     /**
      * 每2小时获取一次微信AccessToken
      */
-    @Scheduled(cron = "0 0 0/2 * * ?")
+    @Scheduled(cron = "0 0 0/1 * * ?")
     public void getWeChatAccessToken() {
         logger.info("[WeChatTask].[getWeChatAccessToken]------> start");
         //通过restTemplate
         ResponseEntity<String> weChatTokenResult = restTemplate.getForEntity(URL, String.class);
-        if (!StringUtils.isEmpty(weChatTokenResult) && weChatTokenResult.getStatusCodeValue() == 200) {
-            logger.info("[WeChatTask].[getWeChatAccessToken]------> success");
-            logger.info("[WeChatTask].[getWeChatAccessToken]------> body = {}", weChatTokenResult.getBody());
-        } else {
-            logger.error("[WeChatTask].[getWeChatAccessToken]------> fail");
-            logger.error("[WeChatTask].[getWeChatAccessToken]------> weChatTokenResult = {}", JSON.toJSONString(weChatTokenResult));
-        }
+        logger.info("[WeChatTask].[getWeChatAccessToken]------> end, weChatTokenResult = {}", JSON.toJSONString(weChatTokenResult));
     }
 
 }
