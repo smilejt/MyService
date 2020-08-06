@@ -119,10 +119,24 @@ public class WeChatController {
                     resultXmlString = CommonConstant.SUCCESS_STRING;
                     break;
                 case WeChatMsgTypeConstant.EVENT_CODE:
+                    //文本消息,异步调用处理
+                    ThreadPoolUtil.newTask(() -> {
+                        logger.info("[WeChatController].[receiveWeChatMessage]-----> Asynchronous Process Messages");
+                        String asynchronousResultString = weChatMessageService.handleWeChatTextMessage(weChatMessage);
+                        //处理完成,执行客服消息回调逻辑
+                        WeChatMessageUtil.sendWeChatMessageToUserName(restTemplate, asynchronousResultString, weChatMessage.getFromUserName());
+                    });
                     //关注/取消关注消息
                     resultXmlString = WeChatMessageUtil.defaultEventMessage(weChatMessage);
                     break;
                 default:
+                    //文本消息,异步调用处理
+                    ThreadPoolUtil.newTask(() -> {
+                        logger.info("[WeChatController].[receiveWeChatMessage]-----> Asynchronous Process Messages");
+                        String asynchronousResultString = weChatMessageService.handleWeChatTextMessage(weChatMessage);
+                        //处理完成,执行客服消息回调逻辑
+                        WeChatMessageUtil.sendWeChatMessageToUserName(restTemplate, asynchronousResultString, weChatMessage.getFromUserName());
+                    });
                     //其他情况
                     resultXmlString = WeChatMessageUtil.defaultMessage(weChatMessage);
             }
