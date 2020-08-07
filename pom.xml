@@ -22,6 +22,7 @@
         <module>service-miNiProject</module>
         <module>service-miNiProject-impl</module>
         <module>service-file</module>
+        <module>service-oAuth2</module>
     </modules>
 
     <properties>

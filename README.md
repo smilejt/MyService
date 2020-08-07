@@ -39,6 +39,7 @@
     service-weChat-impl：微信信息处理及持久化模块
     service-taoBao-impl：淘宝信息处理及持久化模块
     service-miNiProject-impl：微信小程序处理及持久化模块
+    service-oAuth2：登录鉴权模块(尚未完成)
     
 API模块：
     service-zuul：网关模块(目前使用,对外暴露接口,由网关统一分配请求,占用端口8080)
