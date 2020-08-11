@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author longjuntao
- * @description:
+ * @description: 用户Mapper层
  * @date 2020/8/10 15:22
  */
 @Mapper

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.laoshengle.user.impl.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="cn.laoshengle.user.impl.pojo.RolePojo">
+        <!--@Table t_role-->
+        <id column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="role_code" jdbcType="VARCHAR" property="roleCode"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_person" jdbcType="VARCHAR" property="createPerson"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_person" jdbcType="VARCHAR" property="updatePerson"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    tr.role_id, tr.role_code, tr.role_name, tr.create_time, tr.create_person, tr.update_time, tr.update_person, tr.version
+    </sql>
+    <select id="selectByUserId" resultType="cn.laoshengle.user.impl.pojo.RolePojo">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM t_role AS tr
+        LEFT JOIN l_user_role AS ur ON tr.role_id = ur.role_id
+    WHERE ur.user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+</mapper>
