@@ -260,4 +260,9 @@ public class CommonConstant {
      * String的减号
      */
     public static final String SYMBOL_MINUS = "-";
+
+    /**
+     * 用户状态-启用
+     */
+    public static final int USER_STATUS_ENABLE = 1;
 }

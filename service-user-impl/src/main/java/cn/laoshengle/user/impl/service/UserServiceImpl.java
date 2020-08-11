@@ -1,5 +1,7 @@
 package cn.laoshengle.user.impl.service;
 
+import cn.laoshengle.core.constant.CommonConstant;
+import cn.laoshengle.core.entity.user.RoleEntity;
 import cn.laoshengle.core.entity.user.SystemUserEntity;
 import cn.laoshengle.core.service.user.UserService;
 import cn.laoshengle.user.impl.mapper.ResourcesMapper;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,13 +47,13 @@ public class UserServiceImpl implements UserService {
     private ResourcesMapper resourcesMapper;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public SystemUserEntity getUserByLoginName(String loginName) {
 
         logger.info("[UserServiceImpl].[getUserByLoginName]------> loginName = {}", loginName);
 
         QueryWrapper<SystemUserPojo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("login_name", loginName);
+        queryWrapper.eq("user_status", CommonConstant.USER_STATUS_ENABLE);
 
         SystemUserPojo systemUserPojo = userMapper.selectOne(queryWrapper);
         logger.info("[UserServiceImpl].[getUserByLoginName]------> systemUserPojo = {}", JSON.toJSONString(systemUserPojo));
@@ -62,8 +65,21 @@ public class UserServiceImpl implements UserService {
             //获取该用户的角色列表
             logger.info("[UserServiceImpl].[getUserByLoginName]------> Select Role By User, userId = {}", systemUserEntity.getUserId());
             List<RolePojo> roles = roleMapper.selectByUserId(systemUserEntity.getUserId());
-            if(CollectionUtils.isEmpty(roles)){
-                //
+            if (!CollectionUtils.isEmpty(roles)) {
+                List<RoleEntity> roleList = new ArrayList<>();
+                List<String> ids = new ArrayList<>();
+                roles.forEach(pojo -> {
+                    RoleEntity entity = new RoleEntity();
+                    BeanUtils.copyProperties(pojo, entity);
+                    roleList.add(entity);
+                    ids.add(pojo.getRoleId());
+                });
+
+                systemUserEntity.setRoleList(roleList);
+
+                if (!CollectionUtils.isEmpty(ids)){
+                    resourcesMapper.selectByUserId(ids);
+                }
             }
         }
         return systemUserEntity;
