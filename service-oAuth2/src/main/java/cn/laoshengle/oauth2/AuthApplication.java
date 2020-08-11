@@ -13,12 +13,12 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class OAuthApplication {
+public class AuthApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(OAuthApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(OAuthApplication.class, args);
-        logger.info("---------------------OAuthApplication Successful Start---------------------");
+        SpringApplication.run(AuthApplication.class, args);
+        logger.info("---------------------AuthApplication Successful Start---------------------");
     }
 }

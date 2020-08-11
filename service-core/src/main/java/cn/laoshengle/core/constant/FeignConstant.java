@@ -21,4 +21,9 @@ public class FeignConstant {
      * 小程序实现层
      */
     public static final String MINI_PROJECT_SERVICE_NAME = "service-miNiProject-impl";
+
+    /**
+     * 用户服务实现层
+     */
+    public static final String USER_SERVICE_NAME = "service-user-impl";
 }
