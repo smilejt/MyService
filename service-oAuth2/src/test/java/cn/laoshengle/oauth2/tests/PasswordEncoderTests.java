@@ -1,6 +1,6 @@
 package cn.laoshengle.oauth2.tests;
 
-import cn.laoshengle.oauth2.OAuthApplication;
+import cn.laoshengle.oauth2.AuthApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @date 2020/8/8 14:03
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = OAuthApplication.class)
+@SpringBootTest(classes = AuthApplication.class)
 public class PasswordEncoderTests {
 
     private static final Logger logger = LoggerFactory.getLogger(PasswordEncoderTests.class);
