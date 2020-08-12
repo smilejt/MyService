@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.laoshengle.other.impl.mapper.GoodsOriginalDataMapper">
+    <resultMap id="BaseResultMap" type="cn.laoshengle.other.impl.pojo.GoodsOriginalDataPojo">
+        <id column="system_id" property="systemId" jdbcType="VARCHAR"/>
+        <result column="good_id" property="goodId" jdbcType="BIGINT"/>
+        <result column="good_name" property="goodName" jdbcType="VARCHAR"/>
+        <result column="good_pic_url" property="goodPicUrl" jdbcType="VARCHAR"/>
+        <result column="good_detailed_url" property="goodDetailedUrl" jdbcType="VARCHAR"/>
+        <result column="good_category" property="goodCategory" jdbcType="VARCHAR"/>
+        <result column="good_category_id" property="goodCategoryId" jdbcType="VARCHAR"/>
+        <result column="tao_bao_ke_url" property="taoBaoKeUrl" jdbcType="VARCHAR"/>
+        <result column="good_price" property="goodPrice" jdbcType="DECIMAL"/>
+        <result column="good_price_small" property="goodPriceSmall" jdbcType="BIGINT"/>
+        <result column="good_sales_month" property="goodSalesMonth" jdbcType="BIGINT"/>
+        <result column="income_ratio" property="incomeRatio" jdbcType="DECIMAL"/>
+        <result column="income_ratio_small" property="incomeRatioSmall" jdbcType="BIGINT"/>
+        <result column="good_commission" property="goodCommission" jdbcType="DECIMAL"/>
+        <result column="good_commission_small" property="goodCommissionSmall" jdbcType="BIGINT"/>
+        <result column="seller_wang_name" property="sellerWangName" jdbcType="VARCHAR"/>
+        <result column="seller_id" property="sellerId" jdbcType="BIGINT"/>
+        <result column="shop_name" property="shopName" jdbcType="VARCHAR"/>
+        <result column="platform_type" property="platformType" jdbcType="VARCHAR"/>
+        <result column="coupon_id" property="couponId" jdbcType="VARCHAR"/>
+        <result column="coupon_count" property="couponCount" jdbcType="BIGINT"/>
+        <result column="coupon_num" property="couponNum" jdbcType="BIGINT"/>
+        <result column="coupon_quota" property="couponQuota" jdbcType="VARCHAR"/>
+        <result column="coupon_start_amount" property="couponStartAmount" jdbcType="BIGINT"/>
+        <result column="coupon_discount_amount" property="couponDiscountAmount" jdbcType="BIGINT"/>
+        <result column="coupon_start_time" property="couponStartTime" jdbcType="VARCHAR"/>
+        <result column="coupon_end_time" property="couponEndTime" jdbcType="VARCHAR"/>
+        <result column="coupon_url" property="couponUrl" jdbcType="VARCHAR"/>
+        <result column="good_coupon_promote_url" property="goodCouponPromoteUrl" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    system_id, good_id, good_name, good_pic_url, good_detailed_url, good_category, good_category_id, 
+    tao_bao_ke_url, good_price, good_price_small, good_sales_month, income_ratio, income_ratio_small, 
+    good_commission, good_commission_small, seller_wang_name, seller_id, shop_name, platform_type, 
+    coupon_id, coupon_count, coupon_num, coupon_quota, coupon_start_amount, coupon_discount_amount, 
+    coupon_start_time, coupon_end_time, coupon_url, good_coupon_promote_url, insert_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from `taobao_goods_original_data`
+        where system_id = #{systemId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from `taobao_goods_original_data`
+    where system_id = #{systemId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="cn.laoshengle.other.impl.pojo.GoodsOriginalDataPojo">
+    insert into `taobao_goods_original_data` (system_id, good_id, good_name,
+      good_pic_url, good_detailed_url, good_category, 
+      good_category_id, tao_bao_ke_url, good_price, 
+      good_price_small, good_sales_month, income_ratio, 
+      income_ratio_small, good_commission, good_commission_small, 
+      seller_wang_name, seller_id, shop_name, 
+      platform_type, coupon_id, coupon_count, 
+      coupon_num, coupon_quota, coupon_start_amount, 
+      coupon_discount_amount, coupon_start_time, coupon_end_time, 
+      coupon_url, good_coupon_promote_url, insert_time
+      )
+    values (#{systemId,jdbcType=VARCHAR}, #{goodId,jdbcType=BIGINT}, #{goodName,jdbcType=VARCHAR}, 
+      #{goodPicUrl,jdbcType=VARCHAR}, #{goodDetailedUrl,jdbcType=VARCHAR}, #{goodCategory,jdbcType=VARCHAR}, 
+      #{goodCategoryId,jdbcType=VARCHAR}, #{taoBaoKeUrl,jdbcType=VARCHAR}, #{goodPrice,jdbcType=DECIMAL}, 
+      #{goodPriceSmall,jdbcType=BIGINT}, #{goodSalesMonth,jdbcType=BIGINT}, #{incomeRatio,jdbcType=DECIMAL}, 
+      #{incomeRatioSmall,jdbcType=BIGINT}, #{goodCommission,jdbcType=DECIMAL}, #{goodCommissionSmall,jdbcType=BIGINT}, 
+      #{sellerWangName,jdbcType=VARCHAR}, #{sellerId,jdbcType=BIGINT}, #{shopName,jdbcType=VARCHAR}, 
+      #{platformType,jdbcType=VARCHAR}, #{couponId,jdbcType=VARCHAR}, #{couponCount,jdbcType=BIGINT}, 
+      #{couponNum,jdbcType=BIGINT}, #{couponQuota,jdbcType=VARCHAR}, #{couponStartAmount,jdbcType=BIGINT}, 
+      #{couponDiscountAmount,jdbcType=BIGINT}, #{couponStartTime,jdbcType=VARCHAR}, #{couponEndTime,jdbcType=VARCHAR}, 
+      #{couponUrl,jdbcType=VARCHAR}, #{goodCouponPromoteUrl,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="cn.laoshengle.other.impl.pojo.GoodsOriginalDataPojo">
+        insert into `taobao_goods_original_data`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="systemId != null">
+                system_id,
+            </if>
+            <if test="goodId != null">
+                good_id,
+            </if>
+            <if test="goodName != null">
+                good_name,
+            </if>
+            <if test="goodPicUrl != null">
+                good_pic_url,
+            </if>
+            <if test="goodDetailedUrl != null">
+                good_detailed_url,
+            </if>
+            <if test="goodCategory != null">
+                good_category,
+            </if>
+            <if test="goodCategoryId != null">
+                good_category_id,
+            </if>
+            <if test="taoBaoKeUrl != null">
+                tao_bao_ke_url,
+            </if>
+            <if test="goodPrice != null">
+                good_price,
+            </if>
+            <if test="goodPriceSmall != null">
+                good_price_small,
+            </if>
+            <if test="goodSalesMonth != null">
+                good_sales_month,
+            </if>
+            <if test="incomeRatio != null">
+                income_ratio,
+            </if>
+            <if test="incomeRatioSmall != null">
+                income_ratio_small,
+            </if>
+            <if test="goodCommission != null">
+                good_commission,
+            </if>
+            <if test="goodCommissionSmall != null">
+                good_commission_small,
+            </if>
+            <if test="sellerWangName != null">
+                seller_wang_name,
+            </if>
+            <if test="sellerId != null">
+                seller_id,
+            </if>
+            <if test="shopName != null">
+                shop_name,
+            </if>
+            <if test="platformType != null">
+                platform_type,
+            </if>
+            <if test="couponId != null">
+                coupon_id,
+            </if>
+            <if test="couponCount != null">
+                coupon_count,
+            </if>
+            <if test="couponNum != null">
+                coupon_num,
+            </if>
+            <if test="couponQuota != null">
+                coupon_quota,
+            </if>
+            <if test="couponStartAmount != null">
+                coupon_start_amount,
+            </if>
+            <if test="couponDiscountAmount != null">
+                coupon_discount_amount,
+            </if>
+            <if test="couponStartTime != null">
+                coupon_start_time,
+            </if>
+            <if test="couponEndTime != null">
+                coupon_end_time,
+            </if>
+            <if test="couponUrl != null">
+                coupon_url,
+            </if>
+            <if test="goodCouponPromoteUrl != null">
+                good_coupon_promote_url,
+            </if>
+            <if test="insertTime != null">
+                insert_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="systemId != null">
+                #{systemId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodId != null">
+                #{goodId,jdbcType=BIGINT},
+            </if>
+            <if test="goodName != null">
+                #{goodName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodPicUrl != null">
+                #{goodPicUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="goodDetailedUrl != null">
+                #{goodDetailedUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="goodCategory != null">
+                #{goodCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="goodCategoryId != null">
+                #{goodCategoryId,jdbcType=VARCHAR},
+            </if>
+            <if test="taoBaoKeUrl != null">
+                #{taoBaoKeUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="goodPrice != null">
+                #{goodPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="goodPriceSmall != null">
+                #{goodPriceSmall,jdbcType=BIGINT},
+            </if>
+            <if test="goodSalesMonth != null">
+                #{goodSalesMonth,jdbcType=BIGINT},
+            </if>
+            <if test="incomeRatio != null">
+                #{incomeRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="incomeRatioSmall != null">
+                #{incomeRatioSmall,jdbcType=BIGINT},
+            </if>
+            <if test="goodCommission != null">
+                #{goodCommission,jdbcType=DECIMAL},
+            </if>
+            <if test="goodCommissionSmall != null">
+                #{goodCommissionSmall,jdbcType=BIGINT},
+            </if>
+            <if test="sellerWangName != null">
+                #{sellerWangName,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerId != null">
+                #{sellerId,jdbcType=BIGINT},
+            </if>
+            <if test="shopName != null">
+                #{shopName,jdbcType=VARCHAR},
+            </if>
+            <if test="platformType != null">
+                #{platformType,jdbcType=VARCHAR},
+            </if>
+            <if test="couponId != null">
+                #{couponId,jdbcType=VARCHAR},
+            </if>
+            <if test="couponCount != null">
+                #{couponCount,jdbcType=BIGINT},
+            </if>
+            <if test="couponNum != null">
+                #{couponNum,jdbcType=BIGINT},
+            </if>
+            <if test="couponQuota != null">
+                #{couponQuota,jdbcType=VARCHAR},
+            </if>
+            <if test="couponStartAmount != null">
+                #{couponStartAmount,jdbcType=BIGINT},
+            </if>
+            <if test="couponDiscountAmount != null">
+                #{couponDiscountAmount,jdbcType=BIGINT},
+            </if>
+            <if test="couponStartTime != null">
+                #{couponStartTime,jdbcType=VARCHAR},
+            </if>
+            <if test="couponEndTime != null">
+                #{couponEndTime,jdbcType=VARCHAR},
+            </if>
+            <if test="couponUrl != null">
+                #{couponUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="goodCouponPromoteUrl != null">
+                #{goodCouponPromoteUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="insertTime != null">
+                #{insertTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.laoshengle.other.impl.pojo.GoodsOriginalDataPojo">
+        update `taobao_goods_original_data`
+        <set>
+            <if test="goodId != null">
+                good_id = #{goodId,jdbcType=BIGINT},
+            </if>
+            <if test="goodName != null">
+                good_name = #{goodName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodPicUrl != null">
+                good_pic_url = #{goodPicUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="goodDetailedUrl != null">
+                good_detailed_url = #{goodDetailedUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="goodCategory != null">
+                good_category = #{goodCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="goodCategoryId != null">
+                good_category_id = #{goodCategoryId,jdbcType=VARCHAR},
+            </if>
+            <if test="taoBaoKeUrl != null">
+                tao_bao_ke_url = #{taoBaoKeUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="goodPrice != null">
+                good_price = #{goodPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="goodPriceSmall != null">
+                good_price_small = #{goodPriceSmall,jdbcType=BIGINT},
+            </if>
+            <if test="goodSalesMonth != null">
+                good_sales_month = #{goodSalesMonth,jdbcType=BIGINT},
+            </if>
+            <if test="incomeRatio != null">
+                income_ratio = #{incomeRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="incomeRatioSmall != null">
+                income_ratio_small = #{incomeRatioSmall,jdbcType=BIGINT},
+            </if>
+            <if test="goodCommission != null">
+                good_commission = #{goodCommission,jdbcType=DECIMAL},
+            </if>
+            <if test="goodCommissionSmall != null">
+                good_commission_small = #{goodCommissionSmall,jdbcType=BIGINT},
+            </if>
+            <if test="sellerWangName != null">
+                seller_wang_name = #{sellerWangName,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerId != null">
+                seller_id = #{sellerId,jdbcType=BIGINT},
+            </if>
+            <if test="shopName != null">
+                shop_name = #{shopName,jdbcType=VARCHAR},
+            </if>
+            <if test="platformType != null">
+                platform_type = #{platformType,jdbcType=VARCHAR},
+            </if>
+            <if test="couponId != null">
+                coupon_id = #{couponId,jdbcType=VARCHAR},
+            </if>
+            <if test="couponCount != null">
+                coupon_count = #{couponCount,jdbcType=BIGINT},
+            </if>
+            <if test="couponNum != null">
+                coupon_num = #{couponNum,jdbcType=BIGINT},
+            </if>
+            <if test="couponQuota != null">
+                coupon_quota = #{couponQuota,jdbcType=VARCHAR},
+            </if>
+            <if test="couponStartAmount != null">
+                coupon_start_amount = #{couponStartAmount,jdbcType=BIGINT},
+            </if>
+            <if test="couponDiscountAmount != null">
+                coupon_discount_amount = #{couponDiscountAmount,jdbcType=BIGINT},
+            </if>
+            <if test="couponStartTime != null">
+                coupon_start_time = #{couponStartTime,jdbcType=VARCHAR},
+            </if>
+            <if test="couponEndTime != null">
+                coupon_end_time = #{couponEndTime,jdbcType=VARCHAR},
+            </if>
+            <if test="couponUrl != null">
+                coupon_url = #{couponUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="goodCouponPromoteUrl != null">
+                good_coupon_promote_url = #{goodCouponPromoteUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="insertTime != null">
+                insert_time = #{insertTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where system_id = #{systemId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.laoshengle.other.impl.pojo.GoodsOriginalDataPojo">
+    update `taobao_goods_original_data`
+    set good_id = #{goodId,jdbcType=BIGINT},
+      good_name = #{goodName,jdbcType=VARCHAR},
+      good_pic_url = #{goodPicUrl,jdbcType=VARCHAR},
+      good_detailed_url = #{goodDetailedUrl,jdbcType=VARCHAR},
+      good_category = #{goodCategory,jdbcType=VARCHAR},
+      good_category_id = #{goodCategoryId,jdbcType=VARCHAR},
+      tao_bao_ke_url = #{taoBaoKeUrl,jdbcType=VARCHAR},
+      good_price = #{goodPrice,jdbcType=DECIMAL},
+      good_price_small = #{goodPriceSmall,jdbcType=BIGINT},
+      good_sales_month = #{goodSalesMonth,jdbcType=BIGINT},
+      income_ratio = #{incomeRatio,jdbcType=DECIMAL},
+      income_ratio_small = #{incomeRatioSmall,jdbcType=BIGINT},
+      good_commission = #{goodCommission,jdbcType=DECIMAL},
+      good_commission_small = #{goodCommissionSmall,jdbcType=BIGINT},
+      seller_wang_name = #{sellerWangName,jdbcType=VARCHAR},
+      seller_id = #{sellerId,jdbcType=BIGINT},
+      shop_name = #{shopName,jdbcType=VARCHAR},
+      platform_type = #{platformType,jdbcType=VARCHAR},
+      coupon_id = #{couponId,jdbcType=VARCHAR},
+      coupon_count = #{couponCount,jdbcType=BIGINT},
+      coupon_num = #{couponNum,jdbcType=BIGINT},
+      coupon_quota = #{couponQuota,jdbcType=VARCHAR},
+      coupon_start_amount = #{couponStartAmount,jdbcType=BIGINT},
+      coupon_discount_amount = #{couponDiscountAmount,jdbcType=BIGINT},
+      coupon_start_time = #{couponStartTime,jdbcType=VARCHAR},
+      coupon_end_time = #{couponEndTime,jdbcType=VARCHAR},
+      coupon_url = #{couponUrl,jdbcType=VARCHAR},
+      good_coupon_promote_url = #{goodCouponPromoteUrl,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where system_id = #{systemId,jdbcType=VARCHAR}
+  </update>
+    <insert id="insertByList" parameterType="java.util.List">
+        insert into `taobao_goods_original_data` (system_id, good_id, good_name,
+        good_pic_url, good_detailed_url, good_category,
+        good_category_id, tao_bao_ke_url, good_price,
+        good_price_small, good_sales_month, income_ratio,
+        income_ratio_small, good_commission, good_commission_small,
+        seller_wang_name, seller_id, shop_name,
+        platform_type, coupon_id, coupon_count,
+        coupon_num, coupon_quota, coupon_start_amount,
+        coupon_discount_amount, coupon_start_time, coupon_end_time,
+        coupon_url, good_coupon_promote_url, insert_time
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.systemId,jdbcType=VARCHAR}, #{item.goodId,jdbcType=BIGINT}, #{item.goodName,jdbcType=VARCHAR},
+            #{item.goodPicUrl,jdbcType=VARCHAR}, #{item.goodDetailedUrl,jdbcType=VARCHAR},
+            #{item.goodCategory,jdbcType=VARCHAR},
+            #{item.goodCategoryId,jdbcType=VARCHAR}, #{item.taoBaoKeUrl,jdbcType=VARCHAR},
+            #{item.goodPrice,jdbcType=DECIMAL},
+            #{item.goodPriceSmall,jdbcType=BIGINT}, #{item.goodSalesMonth,jdbcType=BIGINT},
+            #{item.incomeRatio,jdbcType=DECIMAL},
+            #{item.incomeRatioSmall,jdbcType=BIGINT}, #{item.goodCommission,jdbcType=DECIMAL},
+            #{item.goodCommissionSmall,jdbcType=BIGINT},
+            #{item.sellerWangName,jdbcType=VARCHAR}, #{item.sellerId,jdbcType=BIGINT},
+            #{item.shopName,jdbcType=VARCHAR},
+            #{item.platformType,jdbcType=VARCHAR}, #{item.couponId,jdbcType=VARCHAR},
+            #{item.couponCount,jdbcType=BIGINT},
+            #{item.couponNum,jdbcType=BIGINT}, #{item.couponQuota,jdbcType=VARCHAR},
+            #{item.couponStartAmount,jdbcType=BIGINT},
+            #{item.couponDiscountAmount,jdbcType=BIGINT}, #{item.couponStartTime,jdbcType=VARCHAR},
+            #{item.couponEndTime,jdbcType=VARCHAR},
+            #{item.couponUrl,jdbcType=VARCHAR}, #{item.goodCouponPromoteUrl,jdbcType=VARCHAR},
+            #{item.insertTime,jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+    <select id="getFeaturedByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM `taobao_goods_original_data`
+        <where>
+            <if test="categoryId != '' and categoryId != null">
+                AND good_category_id = #{categoryId,jdbcType=VARCHAR}
+            </if>
+            <if test="search != '' and search != null">
+                AND good_name LIKE CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="queryDay != '' and queryDay != null">
+                AND insert_time between CONCAT(#{queryDay,jdbcType=VARCHAR},' 00:00:00') AND
+                CONCAT(#{queryDay,jdbcType=VARCHAR},' 23:59:59')
+            </if>
+        </where>
+        LIMIT #{limitIndex,jdbcType=BIGINT},#{limitSize,jdbcType=BIGINT}
+    </select>
+    <select id="countFeaturedByParams" resultType="java.lang.Long" parameterType="java.util.Map">
+        select
+        COUNT(system_id)
+        FROM `taobao_goods_original_data`
+        <where>
+            <if test="categoryId != '' and categoryId != null">
+                AND good_category_id = #{categoryId,jdbcType=VARCHAR}
+            </if>
+            <if test="search != '' and search != null">
+                AND good_name LIKE CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="queryDay != '' and queryDay != null">
+                AND insert_time between CONCAT(#{queryDay,jdbcType=VARCHAR},' 00:00:00') AND
+                CONCAT(#{queryDay,jdbcType=VARCHAR},' 23:59:59')
+            </if>
+        </where>
+    </select>
+</mapper>

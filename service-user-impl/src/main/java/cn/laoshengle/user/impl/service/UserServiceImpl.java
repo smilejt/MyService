@@ -1,12 +1,14 @@
 package cn.laoshengle.user.impl.service;
 
 import cn.laoshengle.core.constant.CommonConstant;
+import cn.laoshengle.core.entity.user.ResourcesEntity;
 import cn.laoshengle.core.entity.user.RoleEntity;
 import cn.laoshengle.core.entity.user.SystemUserEntity;
 import cn.laoshengle.core.service.user.UserService;
 import cn.laoshengle.user.impl.mapper.ResourcesMapper;
 import cn.laoshengle.user.impl.mapper.RoleMapper;
 import cn.laoshengle.user.impl.mapper.SystemUserMapper;
+import cn.laoshengle.user.impl.pojo.ResourcesPojo;
 import cn.laoshengle.user.impl.pojo.RolePojo;
 import cn.laoshengle.user.impl.pojo.SystemUserPojo;
 import com.alibaba.fastjson.JSON;
@@ -77,8 +79,18 @@ public class UserServiceImpl implements UserService {
 
                 systemUserEntity.setRoleList(roleList);
 
-                if (!CollectionUtils.isEmpty(ids)){
-                    resourcesMapper.selectByUserId(ids);
+                //角色列表不为空,获取资源列表
+                if (!CollectionUtils.isEmpty(ids)) {
+                    List<ResourcesPojo> resources = resourcesMapper.selectByUserId(ids);
+                    if (!CollectionUtils.isEmpty(resources)) {
+                        List<ResourcesEntity> resourcesEntities = new ArrayList<>();
+                        resources.forEach(res -> {
+                            ResourcesEntity entity = new ResourcesEntity();
+                            BeanUtils.copyProperties(res, entity);
+                            resourcesEntities.add(entity);
+                        });
+                        systemUserEntity.setResourcesList(resourcesEntities);
+                    }
                 }
             }
         }
