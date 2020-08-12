@@ -18,7 +18,6 @@ import java.util.List;
 public class TaoBaoFeaturedServiceFallBackImpl implements TaoBaoFeaturedService {
     @Override
     public void insertTaoBaoFeaturedByEveryDay(ListEntity paramsList) {
-
     }
 
     @Override

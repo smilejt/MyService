@@ -14,7 +14,7 @@ import java.util.List;
  * @createDate: 2020/05/23 15:16:31
  **/
 @Service
-@FeignClient(value = FeignConstant.MINI_PROJECT_SERVICE_NAME, contextId = "miNiProjectMenuService", path = "api/V1/miNiProject/miNiProjectMenuService")
+@FeignClient(value = FeignConstant.OTHER_SERVICE_NAME, contextId = "miNiProjectMenuService", path = "api/V1/miNiProject/miNiProjectMenuService")
 public interface MiNiProjectMenuService {
 
     /**

@@ -26,7 +26,7 @@ public class WeChatTask {
     @Resource
     private RestTemplate restTemplate;
 
-    private static final String URL = "https://laoshengle.cn/api/weChat/weChatService/getAccessToken";
+    private static final String URL = "https://laoshengle.cn/api/other/weChatService/getAccessToken";
 
     /**
      * 每2小时获取一次微信AccessToken

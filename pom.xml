@@ -13,14 +13,8 @@
         <module>service-core-db</module>
         <module>service-zuul</module>
         <module>service-gateway</module>
-<!--        <module>service-weChat</module>-->
-<!--        <module>service-weChat-impl</module>-->
         <module>service-task</module>
-<!--        <module>service-taoBao-impl</module>-->
-<!--        <module>service-taoBao</module>-->
         <module>service-local</module>
-<!--        <module>service-miNiProject</module>-->
-<!--        <module>service-miNiProject-impl</module>-->
         <module>service-other</module>
         <module>service-other-impl</module>
         <module>service-file</module>

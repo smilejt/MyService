@@ -19,7 +19,7 @@ import java.util.List;
  * @createDate: 2020/05/05 13:14:21
  **/
 @Service
-@FeignClient(value = FeignConstant.TAO_BAO_SERVICE_NAME, contextId = "taoBaoFeaturedService", path = "api/V1/taoBao/taoBaoFeaturedService", fallback = TaoBaoFeaturedServiceFallBackImpl.class)
+@FeignClient(value = FeignConstant.OTHER_SERVICE_NAME, contextId = "taoBaoFeaturedService", path = "api/V1/taoBao/taoBaoFeaturedService", fallback = TaoBaoFeaturedServiceFallBackImpl.class)
 public interface TaoBaoFeaturedService {
 
     /**

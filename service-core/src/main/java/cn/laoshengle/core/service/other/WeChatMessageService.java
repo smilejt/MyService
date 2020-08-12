@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @createDate: 2020/04/27 17:17:35
  **/
 @Service
-@FeignClient(value = FeignConstant.WE_CHAT_SERVICE_NAME,contextId = "weChatMessageService",path = "api/V1/weChat/weChatMessageService")
+@FeignClient(value = FeignConstant.OTHER_SERVICE_NAME,contextId = "weChatMessageService",path = "api/V1/weChat/weChatMessageService")
 public interface WeChatMessageService {
 
     /**

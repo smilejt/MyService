@@ -24,7 +24,7 @@ public class OtherApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(OtherApplication.class, args);
-        logger.info("---------------------WeChatApplication Successful Start---------------------");
+        logger.info("---------------------OtherApplication Successful Start---------------------");
     }
 
     /**
