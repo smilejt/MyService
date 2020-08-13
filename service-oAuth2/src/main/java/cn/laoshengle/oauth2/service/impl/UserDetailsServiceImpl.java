@@ -46,9 +46,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //获取角色对应的资源
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         if (!CollectionUtils.isEmpty(systemUserEntity.getResourcesList())) {
-            systemUserEntity.getResourcesList().forEach(res -> {
-                authorities.add(new SimpleGrantedAuthority(res.getResourceCode()));
-            });
+            systemUserEntity.getResourcesList().forEach(res -> authorities.add(new SimpleGrantedAuthority(res.getResourceCode())));
         }
         return new User(systemUserEntity.getUsername(), systemUserEntity.getPassword(), authorities);
     }

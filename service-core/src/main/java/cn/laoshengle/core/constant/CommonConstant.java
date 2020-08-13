@@ -265,4 +265,9 @@ public class CommonConstant {
      * 用户状态-启用
      */
     public static final int USER_STATUS_ENABLE = 1;
+
+    /**
+     * RabbitMQ消息队列名称
+     */
+    public static final String QUEUE_NAME = "myQueue";
 }
