@@ -21,6 +21,7 @@
         <module>service-oAuth2</module>
         <module>service-user-impl</module>
         <module>service-message</module>
+        <module>service-user</module>
     </modules>
 
     <properties>
@@ -37,7 +38,6 @@
 
     <dependencyManagement>
         <dependencies>
-
             <!-- SpringCloud版本 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
