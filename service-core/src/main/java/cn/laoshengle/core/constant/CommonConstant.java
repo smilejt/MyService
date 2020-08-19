@@ -267,6 +267,11 @@ public class CommonConstant {
     public static final int USER_STATUS_ENABLE = 1;
 
     /**
+     * RabbitMQ消息队列名称
+     */
+    public static final String QUEUE_NAME = "myQueue";
+
+    /**
      * 新建用户初始密码
      */
     public static final String INITIAL_PASSWORD = "123456";

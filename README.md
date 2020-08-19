@@ -46,6 +46,7 @@ API模块：
     service-other：第三方API模块(微信、淘宝、小程序等)
     service-task：定时任务模块(定时任务暴露Http接口,该模块定时调用Http地址达到定时执行任务)
     service-file：文件模块(未启用)
+    service-message：RabbitMQ消息服务(完成发送消息和接收消息雏形)
 </pre>
 
 ### 打包部署说明

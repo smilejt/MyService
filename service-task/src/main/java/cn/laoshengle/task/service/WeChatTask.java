@@ -28,7 +28,7 @@ public class WeChatTask {
     private static final String URL = "https://laoshengle.cn/api/other/weChatService/getAccessToken";
 
     /**
-     * 每2小时获取一次微信AccessToken
+     * 每1小时获取一次微信AccessToken
      */
     @Scheduled(cron = "0 0 0/1 * * ?")
     public void getWeChatAccessToken() {

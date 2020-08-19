@@ -20,6 +20,7 @@
         <module>service-file</module>
         <module>service-oAuth2</module>
         <module>service-user-impl</module>
+        <module>service-message</module>
     </modules>
 
     <properties>
