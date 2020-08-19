@@ -1,10 +1,13 @@
 package cn.laoshengle.user.impl.service;
 
 import cn.laoshengle.core.constant.CommonConstant;
+import cn.laoshengle.core.entity.request.user.AddUserForm;
+import cn.laoshengle.core.entity.request.user.QueryUserForm;
 import cn.laoshengle.core.entity.user.ResourcesEntity;
 import cn.laoshengle.core.entity.user.RoleEntity;
 import cn.laoshengle.core.entity.user.SystemUserEntity;
 import cn.laoshengle.core.service.user.UserService;
+import cn.laoshengle.core.utils.BaseUtil;
 import cn.laoshengle.user.impl.mapper.ResourcesMapper;
 import cn.laoshengle.user.impl.mapper.RoleMapper;
 import cn.laoshengle.user.impl.mapper.SystemUserMapper;
@@ -13,6 +16,8 @@ import cn.laoshengle.user.impl.pojo.RolePojo;
 import cn.laoshengle.user.impl.pojo.SystemUserPojo;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -95,5 +100,39 @@ public class UserServiceImpl implements UserService {
             }
         }
         return systemUserEntity;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addUser(AddUserForm addUserForm) {
+
+        logger.info("[UserServiceImpl].[addUser]------> addUserForm = {}", JSON.toJSONString(addUserForm));
+
+        SystemUserPojo pojo = new SystemUserPojo();
+        BeanUtils.copyProperties(addUserForm, pojo);
+        pojo.setUserId(BaseUtil.getUUID());
+
+        //执行新增用户
+        if (userMapper.insert(pojo) > 0) {
+            logger.info("[UserServiceImpl].[addUser]------> Add User Success = {}", JSON.toJSONString(pojo));
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Page<SystemUserEntity> getUserPage(QueryUserForm queryUserForm) {
+
+        logger.info("[UserServiceImpl].[getUserPage]------> queryUserForm = {}", JSON.toJSONString(queryUserForm));
+
+        Page<SystemUserEntity> userPage = userMapper.getUserPage(new Page<>(queryUserForm.getCurrent(), queryUserForm.getSize()), queryUserForm);
+
+        if (!CollectionUtils.isEmpty(userPage.getRecords())){
+            userPage.getRecords().forEach( entity -> {
+                //TODO 尚未对数据进行处理
+            });
+        }
+
+        return userPage;
     }
 }

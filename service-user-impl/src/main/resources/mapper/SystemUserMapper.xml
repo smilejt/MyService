@@ -2,4 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.laoshengle.user.impl.mapper.SystemUserMapper">
 
+    <sql id="BaseColumns">
+        user_id, login_name, username, user_status, last_login_time, creat_time, last_update_time, last_update_person, version
+    </sql>
+    
+    <select id="getUserPage" resultType="cn.laoshengle.core.entity.user.SystemUserEntity">
+        SELECT
+        <include refid="BaseColumns"/>
+        FROM t_system_user
+        <where>
+            user_status != 99
+            <if test="queryUserForm.loginName != null and queryUserForm.loginName != ''">
+                AND login_name LIKE CONCAT('%',#{queryUserForm.loginName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="queryUserForm.username != null and queryUserForm.username != ''">
+                AND username LIKE CONCAT('%', #{queryUserForm.username,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

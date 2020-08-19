@@ -265,4 +265,19 @@ public class CommonConstant {
      * 用户状态-启用
      */
     public static final int USER_STATUS_ENABLE = 1;
+
+    /**
+     * 新建用户初始密码
+     */
+    public static final String INITIAL_PASSWORD = "123456";
+
+    /**
+     * 返回前端通用数据Key
+     */
+    public static final String RESULT_DATA = "data";
+
+    /**
+     * 数字0
+     */
+    public static final int NUMBER_ZERO = 0;
 }

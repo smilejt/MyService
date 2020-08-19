@@ -1,6 +1,8 @@
 package cn.laoshengle.core.entity.user;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +14,8 @@ import java.util.List;
  * @date 2020/8/10 14:26
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 public class SystemUserEntity implements Serializable {
     private static final long serialVersionUID = 4634331089230697204L;
 
